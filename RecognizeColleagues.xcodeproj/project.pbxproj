@@ -12,6 +12,9 @@
 		C740C6FD290CF00800CC9758 /* RecognizeColleagues.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C740C6FB290CF00800CC9758 /* RecognizeColleagues.xcdatamodeld */; };
 		C740C6FF290CF00900CC9758 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C740C6FE290CF00900CC9758 /* Assets.xcassets */; };
 		C740C702290CF00900CC9758 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C740C700290CF00900CC9758 /* Main.storyboard */; };
+		C740C70A290D087B00CC9758 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C740C709290D087B00CC9758 /* GameViewController.swift */; };
+		C740C70C290D683600CC9758 /* Constellations.swift in Sources */ = {isa = PBXBuildFile; fileRef = C740C70B290D683600CC9758 /* Constellations.swift */; };
+		C740C70E290D71E700CC9758 /* CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C740C70D290D71E700CC9758 /* CoreDataClass.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +25,9 @@
 		C740C6FE290CF00900CC9758 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C740C701290CF00900CC9758 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C740C703290CF00900CC9758 /* RecognizeColleagues.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RecognizeColleagues.entitlements; sourceTree = "<group>"; };
+		C740C709290D087B00CC9758 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+		C740C70B290D683600CC9758 /* Constellations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constellations.swift; sourceTree = "<group>"; };
+		C740C70D290D71E700CC9758 /* CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataClass.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,7 +61,10 @@
 			isa = PBXGroup;
 			children = (
 				C740C6F7290CF00800CC9758 /* AppDelegate.swift */,
+				C740C70B290D683600CC9758 /* Constellations.swift */,
+				C740C70D290D71E700CC9758 /* CoreDataClass.swift */,
 				C740C6F9290CF00800CC9758 /* ViewController.swift */,
+				C740C709290D087B00CC9758 /* GameViewController.swift */,
 				C740C6FE290CF00900CC9758 /* Assets.xcassets */,
 				C740C700290CF00900CC9758 /* Main.storyboard */,
 				C740C703290CF00900CC9758 /* RecognizeColleagues.entitlements */,
@@ -134,8 +143,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C740C70A290D087B00CC9758 /* GameViewController.swift in Sources */,
 				C740C6FD290CF00800CC9758 /* RecognizeColleagues.xcdatamodeld in Sources */,
 				C740C6FA290CF00800CC9758 /* ViewController.swift in Sources */,
+				C740C70E290D71E700CC9758 /* CoreDataClass.swift in Sources */,
+				C740C70C290D683600CC9758 /* Constellations.swift in Sources */,
 				C740C6F8290CF00800CC9758 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

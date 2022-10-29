@@ -21,6 +21,15 @@ class ViewController: NSViewController {
         }
     }
 
+    @IBAction func startGameAction(_ sender: Any) {
+        switchPages(pageID: "GameViewController")
+    }
+    
+    private func switchPages(pageID: String) {
+        if let controller = self.storyboard?.instantiateController(withIdentifier: pageID) as? GameViewController {
+            self.view.window?.contentViewController = controller
+        }
+    }
 
 }
 
