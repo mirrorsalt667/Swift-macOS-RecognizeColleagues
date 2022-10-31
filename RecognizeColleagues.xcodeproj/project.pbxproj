@@ -15,6 +15,9 @@
 		C740C70A290D087B00CC9758 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C740C709290D087B00CC9758 /* GameViewController.swift */; };
 		C740C70C290D683600CC9758 /* Constellations.swift in Sources */ = {isa = PBXBuildFile; fileRef = C740C70B290D683600CC9758 /* Constellations.swift */; };
 		C740C70E290D71E700CC9758 /* CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C740C70D290D71E700CC9758 /* CoreDataClass.swift */; };
+		C740C711290E18CE00CC9758 /* UpdateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C740C70F290E18CE00CC9758 /* UpdateViewController.swift */; };
+		C740C714290E198200CC9758 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C740C713290E198200CC9758 /* ListViewController.swift */; };
+		C7942859290EAE31006E921C /* FileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7942858290EAE31006E921C /* FileViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +31,9 @@
 		C740C709290D087B00CC9758 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		C740C70B290D683600CC9758 /* Constellations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constellations.swift; sourceTree = "<group>"; };
 		C740C70D290D71E700CC9758 /* CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataClass.swift; sourceTree = "<group>"; };
+		C740C70F290E18CE00CC9758 /* UpdateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateViewController.swift; sourceTree = "<group>"; };
+		C740C713290E198200CC9758 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
+		C7942858290EAE31006E921C /* FileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +71,9 @@
 				C740C70D290D71E700CC9758 /* CoreDataClass.swift */,
 				C740C6F9290CF00800CC9758 /* ViewController.swift */,
 				C740C709290D087B00CC9758 /* GameViewController.swift */,
+				C740C70F290E18CE00CC9758 /* UpdateViewController.swift */,
+				C740C713290E198200CC9758 /* ListViewController.swift */,
+				C7942858290EAE31006E921C /* FileViewController.swift */,
 				C740C6FE290CF00900CC9758 /* Assets.xcassets */,
 				C740C700290CF00900CC9758 /* Main.storyboard */,
 				C740C703290CF00900CC9758 /* RecognizeColleagues.entitlements */,
@@ -143,11 +152,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C7942859290EAE31006E921C /* FileViewController.swift in Sources */,
 				C740C70A290D087B00CC9758 /* GameViewController.swift in Sources */,
 				C740C6FD290CF00800CC9758 /* RecognizeColleagues.xcdatamodeld in Sources */,
 				C740C6FA290CF00800CC9758 /* ViewController.swift in Sources */,
 				C740C70E290D71E700CC9758 /* CoreDataClass.swift in Sources */,
 				C740C70C290D683600CC9758 /* Constellations.swift in Sources */,
+				C740C711290E18CE00CC9758 /* UpdateViewController.swift in Sources */,
+				C740C714290E198200CC9758 /* ListViewController.swift in Sources */,
 				C740C6F8290CF00800CC9758 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

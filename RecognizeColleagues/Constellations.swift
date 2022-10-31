@@ -5,6 +5,7 @@
 //  Created by Stephen on 2022/10/29.
 //
 
+// 星座資料及月份
 import Foundation
 
 final class ConstellationsClass {

@@ -9,17 +9,21 @@ import Foundation
 import CoreData
 import Cocoa
 
-final class CoreDataClass {
-    let context = (NSApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+final class CoreDataClass: NSObject, NSFetchedResultsControllerDelegate {
+    
+    let mContainer = (NSApplication.shared.delegate as! AppDelegate).persistentContainer
+    let mContext = (NSApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    
+    
     
     // read and load data
-    private func loadDataBase() {
+    func loadDataBase() {
         let fetchRequestRead = NSFetchRequest<Colleagues>(entityName: "Colleagues")
         fetchRequestRead.fetchLimit = 1
         fetchRequestRead.predicate = NSPredicate(format: "", "")
         
         do {
-            let colleaguesData = try context.fetch(fetchRequestRead)
+            let colleaguesData = try mContext.fetch(fetchRequestRead)
             print(colleaguesData[0])
         } catch let readError {
             print(readError)
@@ -27,29 +31,37 @@ final class CoreDataClass {
     }
     
     // 新增資料
-    private func newDataBase(name: String) {
-        let colleagues = NSEntityDescription.insertNewObject(forEntityName: "Colleagues", into: context) as! Colleagues
-        colleagues.chineseName = name
+    func newDataBase(new: Colleagues) {
+        let colleagues = NSEntityDescription.insertNewObject(forEntityName: "Colleagues", into: mContext) as! Colleagues
+        colleagues.uuid = new.uuid
+        colleagues.chineseName = new.chineseName
+        colleagues.englishName = new.englishName
+        colleagues.birthString = new.birthString
+        colleagues.constellations = new.constellations
+        colleagues.department = new.department
+        colleagues.jobTitle = new.jobTitle
+        colleagues.from = new.from
+        colleagues.photo = new.photo
         do {
-            try context.save()
-            print(colleagues)
+            try mContext.save()
+            print("存入資料", colleagues)
         } catch let catchError {
             print(catchError)
         }
     }
     
     // 更新
-    private func uploadDataBase(chineseName: String) {
+    func uploadDataBase(chineseName: String) {
         let fetchRequestUpdate = NSFetchRequest<Colleagues>(entityName: "Colleagues")
         fetchRequestUpdate.fetchLimit = 1
         fetchRequestUpdate.predicate = NSPredicate(format: "", "")
         
         do {
-            let colleaguesUpdate = try context.fetch(fetchRequestUpdate)
+            let colleaguesUpdate = try mContext.fetch(fetchRequestUpdate)
             colleaguesUpdate[0].chineseName = chineseName
             // 存回去
             do {
-                try context.save()
+                try mContext.save()
             } catch let savrError {
                 print("update save error: ", savrError)
             }
@@ -59,17 +71,17 @@ final class CoreDataClass {
     }
     
     // delete
-    private func deleteDataBase() {
+    func deleteDataBase() {
         let fetchRequestDelete = NSFetchRequest<Colleagues>(entityName: "Colleagues")
         fetchRequestDelete.fetchLimit = 1
         fetchRequestDelete.predicate = NSPredicate(format: "", "")
         
         do {
-            let colleaguesDelete = try context.fetch(fetchRequestDelete)
-            context.delete(colleaguesDelete[0])
+            let colleaguesDelete = try mContext.fetch(fetchRequestDelete)
+            mContext.delete(colleaguesDelete[0])
             // 存回去
             do {
-                try context.save()
+                try mContext.save()
             } catch let savrError {
                 print("update save error: ", savrError)
             }
