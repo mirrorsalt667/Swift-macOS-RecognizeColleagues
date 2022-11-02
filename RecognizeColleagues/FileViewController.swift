@@ -24,6 +24,7 @@ final class FileViewController: NSViewController {
     var selectedFolder: URL? {
         didSet {
             if let selectedFolder = selectedFolder {
+                print("載入資料")
                 filesList = contentsOf(folder: selectedFolder)
                 selectedItem = nil
                 self.tableView.reloadData()
@@ -55,11 +56,15 @@ final class FileViewController: NSViewController {
         }
     }
     
+    var selectedFileURL: URL?
+    
     
     // MARK: - View Lifecycle & error dialog utility
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.delegate = self
+        tableView.dataSource = self
     }
     
     override func viewWillAppear() {
@@ -102,7 +107,7 @@ extension FileViewController {
     }
     
     func infoAbout(url: URL) -> String {
-        // 1
+        // 1 檔案管理
         let fileManager = FileManager.default
         
         // 2
@@ -133,7 +138,8 @@ extension FileViewController {
         
         let textAttributes: [NSAttributedString.Key: Any] = [
             NSAttributedString.Key.font: NSFont.systemFont(ofSize: 14),
-            NSAttributedString.Key.paragraphStyle: paragraphStyle ?? NSParagraphStyle.default
+            NSAttributedString.Key.paragraphStyle: paragraphStyle ?? NSParagraphStyle.default,
+            NSAttributedString.Key.foregroundColor: NSColor.white
         ]
         
         let formattedText = NSAttributedString(string: text, attributes: textAttributes)
@@ -151,8 +157,11 @@ extension FileViewController {
         
         // 2 顯示NSOpenPanel
         let panel = NSOpenPanel()
+        // 檔案
         panel.canChooseFiles = false
+        // 目錄
         panel.canChooseDirectories = true
+        // 多選
         panel.allowsMultipleSelection = false
         
         // 3 閉包等待顯現結果
@@ -160,7 +169,7 @@ extension FileViewController {
             if result == NSApplication.ModalResponse.OK {
                 // 4
                 self.selectedFolder = panel.urls[0]
-                print(self.selectedFolder)
+                print("選擇的資料夾：", self.selectedFolder!)
             }
         }
 
@@ -182,6 +191,14 @@ extension FileViewController {
         if tableView.selectedRow < 0 { return }
         // 2
         let selectedItem = filesList[tableView.selectedRow]
+        print("選擇item: ", selectedItem)
+        // exten
+        selectedFileURL = selectedItem
+        let fileExtension = selectedFileURL!.pathExtension
+        let fileName = selectedFileURL!.lastPathComponent
+        print("檔案副檔名：", fileExtension) // 不含點
+        print("檔案名稱：", fileName) // 含副檔名
+        
         // 3
         if selectedItem.hasDirectoryPath {
             selectedFolder = selectedItem
@@ -193,7 +210,73 @@ extension FileViewController {
         if selectedFolder?.path == "/" { return }
         selectedFolder = selectedFolder?.deletingLastPathComponent()
     }
-    @IBAction func saveInfoClicked(_ sender: Any) {}
+    // 儲存
+    @IBAction func saveInfoClicked(_ sender: Any) {
+        saveToMenu()
+//        // 1
+//        guard let window = view.window else { return }
+//        guard let selectedItem = selectedItem else { return }
+//
+//        // 2
+//        let panel = NSSavePanel()
+//        // 3
+//        panel.directoryURL = FileManager.default.homeDirectoryForCurrentUser
+//        // 4
+//        panel.nameFieldStringValue = selectedItem
+//            .deletingPathExtension()
+//            .appendingPathExtension("fs.txt")
+//            .lastPathComponent
+//
+//        // 5
+//        panel.beginSheetModal(for: window) { (result) in
+//            if result == NSApplication.ModalResponse.OK,
+//               let url = panel.url {
+//                // 6
+//                do {
+//                    let infoAsText = self.infoAbout(url: selectedItem)
+//                    try infoAsText.write(to: url, atomically: true, encoding: .utf8)
+//                } catch {
+//                    self.showErrorDialogIn(window: window,
+//                                           title: "Unable to save file",
+//                                           message: error.localizedDescription)
+//                }
+//            }
+//        }
+    }
+    
+    func saveToMenu() {
+//        let panel = NSSavePanel()
+        print(selectedFileURL!)
+        let bundleFile = selectedFileURL!
+        let appDirectory = FileManager.default.urls(for: .applicationDirectory, in: .userDomainMask).first!
+        let newAppDirectory = appDirectory.appendingPathComponent("colleagues1").appendingPathExtension("png")
+        do {
+            try  FileManager().createDirectory(atPath: appDirectory.path, withIntermediateDirectories: false, attributes: nil)
+        } catch let createError {
+            print("製造資料夾錯誤：", createError)
+        }
+        
+//        panel.directoryURL = FileManager.default.urls(for: .desktopDirectory, in: .userDomainMask).first!
+//        panel.message = "colleagues data"
+//        panel.nameFieldStringValue = "SaveFile"
+//        panel.showsHiddenFiles = false
+//        panel.showsTagField = false
+//        panel.canCreateDirectories = true
+//        panel.allowsOtherFileTypes = true
+//        panel.isExtensionHidden = false
+        
+//        if let url = panel.url,
+//           panel.runModal() == NSApplication.ModalResponse.OK {
+        print("now copy: ", bundleFile.path, "to: ", newAppDirectory.path)
+            do {
+                try FileManager().copyItem(at: bundleFile, to: newAppDirectory)
+            } catch let copyError {
+                print("儲存錯誤：", copyError.localizedDescription)
+            }
+//        } else {
+//            print("cancel")
+//        }
+    }
 }
 
 // MARK: - NSTableViewDataSource
@@ -217,8 +300,6 @@ extension FileViewController: NSTableViewDelegate {
         
         // 3 建立自訂table cell view
         if let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "FileCell"), owner: nil) as? NSTableCellView {
-//        if let cell = tableView.make(withIdentifier: "FileCell", owner: nil)
-//            as? NSTableCellView {
             // 4
             cell.textField?.stringValue = item.lastPathComponent
             cell.imageView?.image = fileIcon

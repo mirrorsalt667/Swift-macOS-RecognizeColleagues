@@ -989,6 +989,9 @@
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
+                                <connections>
+                                    <segue destination="pSt-VG-ft5" kind="show" id="OFb-uE-jIi"/>
+                                </connections>
                             </button>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="p0y-gy-hDm">
                                 <rect key="frame" x="21" y="257" width="61" height="32"/>
@@ -1056,7 +1059,7 @@
                                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                     <tableColumns>
-                                                        <tableColumn width="247" minWidth="40" maxWidth="1000" id="MIf-s9-2tG">
+                                                        <tableColumn width="248" minWidth="40" maxWidth="1000" id="MIf-s9-2tG">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
@@ -1069,7 +1072,7 @@
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                             <prototypeCellViews>
                                                                 <tableCellView identifier="FileCell" id="iSy-by-WZY">
-                                                                    <rect key="frame" x="8" y="0.0" width="242" height="24"/>
+                                                                    <rect key="frame" x="8" y="0.0" width="243" height="24"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
                                                                         <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wnl-Tt-lzl">
@@ -1078,16 +1081,13 @@
                                                                             <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSActionTemplate" id="q7Z-LP-Ycm"/>
                                                                         </imageView>
                                                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iYg-WA-77W">
-                                                                            <rect key="frame" x="57" y="5" width="122" height="16"/>
+                                                                            <rect key="frame" x="57" y="5" width="123" height="16"/>
                                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                                             <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="isE-yu-gmN">
                                                                                 <font key="font" usesAppearanceFont="YES"/>
                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                             </textFieldCell>
-                                                                            <connections>
-                                                                                <action selector="tableViewDoubleClicked:" target="pSt-VG-ft5" id="E8T-eZ-rEk"/>
-                                                                            </connections>
                                                                         </textField>
                                                                     </subviews>
                                                                     <connections>
@@ -1097,11 +1097,14 @@
                                                             </prototypeCellViews>
                                                         </tableColumn>
                                                     </tableColumns>
+                                                    <connections>
+                                                        <action selector="tableViewDoubleClicked:" target="pSt-VG-ft5" id="dJb-QB-4z6"/>
+                                                    </connections>
                                                 </tableView>
                                             </subviews>
                                         </clipView>
                                         <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="mzp-tC-G08">
-                                            <rect key="frame" x="1" y="252" width="260" height="16"/>
+                                            <rect key="frame" x="1" y="253" width="260" height="15"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                         <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="33k-5h-PGv">
@@ -1116,15 +1119,15 @@
                                     <scrollView borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6ej-wS-Cu3">
                                         <rect key="frame" x="270" y="1" width="524" height="269"/>
                                         <clipView key="contentView" drawsBackground="NO" id="kzp-Zw-7eN">
-                                            <rect key="frame" x="0.0" y="0.0" width="509" height="269"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="524" height="269"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <textView importsGraphics="NO" richText="NO" verticallyResizable="YES" spellingCorrection="YES" smartInsertDelete="YES" id="9dn-Nl-rqe">
-                                                    <rect key="frame" x="0.0" y="0.0" width="509" height="269"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="524" height="269"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                    <size key="minSize" width="509" height="269"/>
+                                                    <size key="minSize" width="524" height="269"/>
                                                     <size key="maxSize" width="1121" height="10000000"/>
                                                     <color key="insertionPointColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                 </textView>
@@ -1135,7 +1138,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                         <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="Cdj-4W-vIp">
-                                            <rect key="frame" x="509" y="0.0" width="15" height="269"/>
+                                            <rect key="frame" x="508" y="0.0" width="16" height="269"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                     </scrollView>
@@ -1187,7 +1190,7 @@
                                 <rect key="frame" x="150" y="8" width="74" height="32"/>
                                 <buttonCell key="cell" type="push" title="上一頁" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="EwL-bO-gGD">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" size="13" name=".PingFangTC-Regular"/>
+                                    <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
                                     <action selector="moveUpClicked:" target="pSt-VG-ft5" id="zfG-3f-gGB"/>
