@@ -53,4 +53,18 @@ final class ConstellationsClass {
         }
         return dateOne
     }
+    
+    func checkPersonConstellation(birth: Date) -> String {
+        let count = allConstellationsArray.count
+        for i in 0..<count {
+            if let beginDate = turnStringToDate(input: allConstellationsArray[i].beginDate),
+               let endDate = turnStringToDate(input: allConstellationsArray[i].endDate) {
+                if beginDate <= birth,
+                   endDate >= birth {
+                    return allConstellationsArray[i].name
+                }
+            }
+        }
+        return " -- "
+    }
 }

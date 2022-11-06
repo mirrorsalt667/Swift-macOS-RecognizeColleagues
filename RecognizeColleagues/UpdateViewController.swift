@@ -54,7 +54,6 @@ final class UpdateViewController: NSViewController {
     override func viewDidAppear() {
         super.viewDidAppear()
         mCoreDateClass.loadDataBase()
-//        mCoreDateClass.deleteDataBase()
     }
 }
 
@@ -177,6 +176,8 @@ extension UpdateViewController {
         let viewWidth = view.window!.frame.width
         let windowHeight = view.window!.frame.height
         
+        constellationTextField.isEnabled = false
+        
         pageTitleLabel.translatesAutoresizingMaskIntoConstraints = false
         pageTitleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         pageTitleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: toTopHeight).isActive = true
@@ -208,11 +209,14 @@ extension UpdateViewController {
 
 extension UpdateViewController: NSTextFieldDelegate {
     func controlTextDidEndEditing(_ obj: Notification) {
-        let month = birthMonthTextField.stringValue
-        let date = birthDateTextField.stringValue
-        if month != "",
-           date != "" {
-            mConstellation.turnStringToDate(input: month + "/" + date)
+        let monthStr = birthMonthTextField.stringValue
+        let dateStr = birthDateTextField.stringValue
+        if monthStr != "",
+           dateStr != "" {
+            if let date = mConstellation.turnStringToDate(input: monthStr + "/" + dateStr) {
+                constellationTextField.stringValue = mConstellation.checkPersonConstellation(birth: date)
+            }
+            
         }
     }
 }
