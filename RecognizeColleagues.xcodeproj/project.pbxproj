@@ -71,12 +71,6 @@
 				C740C6F7290CF00800CC9758 /* AppDelegate.swift */,
 				C7E55215291687760093BDE0 /* Model */,
 				C7E55216291687800093BDE0 /* ViewController */,
-				C740C70B290D683600CC9758 /* Constellations.swift */,
-				C740C70D290D71E700CC9758 /* CoreDataClass.swift */,
-				C740C6F9290CF00800CC9758 /* ViewController.swift */,
-				C740C709290D087B00CC9758 /* GameViewController.swift */,
-				C740C70F290E18CE00CC9758 /* UpdateViewController.swift */,
-				C740C713290E198200CC9758 /* ListViewController.swift */,
 				C7942858290EAE31006E921C /* FileViewController.swift */,
 				C740C6FE290CF00900CC9758 /* Assets.xcassets */,
 				C740C700290CF00900CC9758 /* Main.storyboard */,
@@ -90,6 +84,8 @@
 			isa = PBXGroup;
 			children = (
 				C7E55217291779F30093BDE0 /* FileManagerObject.swift */,
+				C740C70B290D683600CC9758 /* Constellations.swift */,
+				C740C70D290D71E700CC9758 /* CoreDataClass.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -97,6 +93,10 @@
 		C7E55216291687800093BDE0 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				C740C6F9290CF00800CC9758 /* ViewController.swift */,
+				C740C709290D087B00CC9758 /* GameViewController.swift */,
+				C740C70F290E18CE00CC9758 /* UpdateViewController.swift */,
+				C740C713290E198200CC9758 /* ListViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
