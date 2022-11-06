@@ -29,30 +29,77 @@ final class UpdateViewController: NSViewController {
     
     private let mCoreDateClass = CoreDataClass()
     private let mConstellation = ConstellationsClass()
-    
-//    let mHome = FileManager.default.homeDirectoryForCurrentUser
+    private let mFileManager = FileManagerObject()
+    private var mIsFirstTimeLoad = true
+    private var mPhotoURL: URL?
     
     
     // MARK: - View Lifecycle & error dialog utility
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        componentLayout()
-        
         birthMonthTextField.delegate = self
         birthDateTextField.delegate = self
+        mCoreDateClass.mDelegate = self
     }
     
-    // MARK: Action
+    override func viewDidLayout() {
+        super.viewDidLayout()
+        if mIsFirstTimeLoad {
+            componentLayout()
+            mIsFirstTimeLoad = false
+        }
+    }
+    
+    override func viewDidAppear() {
+        super.viewDidAppear()
+        mCoreDateClass.loadDataBase()
+//        mCoreDateClass.deleteDataBase()
+    }
+}
+
+// MARK: Action
+
+extension UpdateViewController {
+    // 回到前一頁
     @IBAction func backFrontPageAction(_ sender: Any) {
         backToFrontPage()
     }
-    
+    // 儲存新員工資料
     @IBAction func saveDataAction(_ sender: NSButton) {
-        saveNewData()
+        // 1 先將圖片複製到app裡面
+        guard let photoURL = mPhotoURL else { return }
+        mFileManager.saveToDirectoryAndSaveIndex(selectFileURL: photoURL) { [weak self] isSuccess, url  in
+            if isSuccess {
+                // 2 儲存到資料庫
+                self?.saveNewData(fileURL: url)
+            } else {
+                self?.showAlert(message: "儲存失敗", iconName: "circle").runModal()
+            }
+        }
     }
-    
-    
+    // 開啟檔案頁面，選擇圖片
+    @IBAction func selectFileAction(_ sender: Any) {
+        guard let window = view.window else { return }
+        mFileManager.openFilePanel(window: window) { [weak self] fileURL in
+            let fileExtension = fileURL.pathExtension.lowercased()
+            if fileExtension == "png"
+                || fileExtension == "jpg"
+                || fileExtension == "jpeg"
+            {
+                self?.photoButton.image = NSImage(contentsOf: fileURL)
+                self?.mPhotoURL = fileURL
+            } else {
+                // 不是指定格式
+                self?.showAlert(message: "圖片格式錯誤。", iconName: "moon").runModal()
+            }
+        }
+    }
+}
+
+// MARK: functions
+
+extension UpdateViewController {
     
     //back to front page
     private func backToFrontPage() {
@@ -62,7 +109,7 @@ final class UpdateViewController: NSViewController {
     }
     
     // check Text field detail
-    private func checkTextFieldDetail() -> Colleagues {
+    private func checkTextFieldDetail(file: URL) -> Colleagues {
         let newData = Colleagues(context: mCoreDateClass.mContext)
         newData.uuid = UUID()
         if chineseNameTextField.stringValue != "" {
@@ -90,22 +137,45 @@ final class UpdateViewController: NSViewController {
         if comeFromTextField.stringValue != "" {
             newData.from = comeFromTextField.stringValue
         }
+        // 圖片位置
+        newData.photo = file.path
+        
         return newData
     }
     
     // save data
-    private func saveNewData() {
-        mCoreDateClass.newDataBase(new: checkTextFieldDetail())
+    private func saveNewData(fileURL: URL) {
+        mCoreDateClass.newDataBase(new: checkTextFieldDetail(file: fileURL))
     }
     
-    // open file manager
-    private func openFile() {
+    // alert
+    private func showAlert(message: String, iconName: String) -> NSAlert {
+        let alertController = NSAlert()
+        alertController.icon = NSImage(systemSymbolName: iconName, accessibilityDescription: nil)
+        alertController.addButton(withTitle: "確定")
+        alertController.messageText = message
+        return alertController
+    }
+    
+    // 儲存成功後
+    private func cleanTextFieldAndImage() {
+        chineseNameTextField.stringValue = ""
+        englishNameTextField.stringValue = ""
+        birthMonthTextField.stringValue = ""
+        birthDateTextField.stringValue = ""
+        constellationTextField.stringValue = ""
+        departmentTextField.stringValue = ""
+        jobTitleTextField.stringValue = ""
+        comeFromTextField.stringValue = ""
+        photoButton.image = NSImage(systemSymbolName: "photo", accessibilityDescription: nil)
     }
     
     // layout
     private func componentLayout() {
         let toTopHeight: CGFloat = 12
-        let viewWidth = view.frame.size.width
+        let space: CGFloat = 12
+        let viewWidth = view.window!.frame.width
+        let windowHeight = view.window!.frame.height
         
         pageTitleLabel.translatesAutoresizingMaskIntoConstraints = false
         pageTitleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
@@ -113,18 +183,18 @@ final class UpdateViewController: NSViewController {
         
         backButton.translatesAutoresizingMaskIntoConstraints = false
         backButton.topAnchor.constraint(equalTo: view.topAnchor, constant: toTopHeight).isActive = true
-        backButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 12).isActive = true
+        backButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: space).isActive = true
         
         listStackView.translatesAutoresizingMaskIntoConstraints = false
         listStackView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         listStackView.trailingAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        listStackView.widthAnchor.constraint(equalToConstant: (viewWidth / 2) - 12).isActive = true
+        listStackView.widthAnchor.constraint(equalToConstant: (viewWidth / 2) - space).isActive = true
         
         photoButton.translatesAutoresizingMaskIntoConstraints = false
-        photoButton.leadingAnchor.constraint(equalTo: view.centerXAnchor, constant: 12).isActive = true
-        photoButton.widthAnchor.constraint(equalToConstant: (viewWidth / 2) - 24).isActive = true
-        photoButton.topAnchor.constraint(equalTo: listStackView.topAnchor).isActive = true
-        photoButton.bottomAnchor.constraint(equalTo: listStackView.bottomAnchor).isActive = true
+        photoButton.leadingAnchor.constraint(equalTo: view.centerXAnchor, constant: space).isActive = true
+        photoButton.centerYAnchor.constraint(equalTo: listStackView.centerYAnchor).isActive = true
+        photoButton.widthAnchor.constraint(equalToConstant: (viewWidth / 2) - (space * 2)).isActive = true
+        photoButton.heightAnchor.constraint(equalToConstant: windowHeight * 2 / 3).isActive = true
         
         confirmNewDataButton.translatesAutoresizingMaskIntoConstraints = false
         confirmNewDataButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
@@ -138,12 +208,21 @@ final class UpdateViewController: NSViewController {
 
 extension UpdateViewController: NSTextFieldDelegate {
     func controlTextDidEndEditing(_ obj: Notification) {
-        print("結束編輯")
+        let month = birthMonthTextField.stringValue
+        let date = birthDateTextField.stringValue
+        if month != "",
+           date != "" {
+            mConstellation.turnStringToDate(input: month + "/" + date)
+        }
     }
 }
 
-// MARK: file manager
 
-extension UpdateViewController: FileManagerDelegate {
-    
+// MARK: - Delegate
+
+extension UpdateViewController: CoreDataDelegate {
+    // 儲存資料成功
+    func saveDataSuccessed(_ object: CoreDataClass) {
+        cleanTextFieldAndImage()
+    }
 }

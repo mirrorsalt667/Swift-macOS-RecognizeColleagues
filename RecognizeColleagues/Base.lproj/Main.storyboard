@@ -723,20 +723,20 @@
                             <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="5" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" fixedFrame="YES" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9W5-HC-xwi">
                                 <rect key="frame" x="33" y="79" width="158" height="177"/>
                                 <subviews>
-                                    <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1Ke-jW-NIp">
+                                    <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yna-Mf-6N5">
                                         <rect key="frame" x="0.0" y="156" width="158" height="21"/>
                                         <subviews>
-                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="aHT-TD-jBY">
+                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="gJ7-OP-Scc">
                                                 <rect key="frame" x="-2" y="5" width="58" height="16"/>
-                                                <textFieldCell key="cell" lineBreakMode="clipping" title="中文姓名" id="oNx-87-kFt">
+                                                <textFieldCell key="cell" lineBreakMode="clipping" title="中文姓名" id="rVX-rY-GwY">
                                                     <font key="font" metaFont="system"/>
                                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                 </textFieldCell>
                                             </textField>
-                                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="dA6-4V-wa5">
+                                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="OMN-JM-Lhw">
                                                 <rect key="frame" x="62" y="0.0" width="96" height="21"/>
-                                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" id="bWq-rs-jd8">
+                                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" id="YAx-eD-xKB">
                                                     <font key="font" metaFont="system"/>
                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -990,7 +990,7 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <segue destination="pSt-VG-ft5" kind="show" id="OFb-uE-jIi"/>
+                                    <action selector="selectFileAction:" target="Eje-Tj-zWl" id="4iW-sW-RUW"/>
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="p0y-gy-hDm">
@@ -1019,7 +1019,7 @@
                         <outlet property="backButton" destination="p0y-gy-hDm" id="af1-Z5-h2c"/>
                         <outlet property="birthDateTextField" destination="VqP-Hk-adL" id="cCf-mb-4RX"/>
                         <outlet property="birthMonthTextField" destination="0SE-AH-FNG" id="pk1-VU-YeV"/>
-                        <outlet property="chineseNameTextField" destination="dA6-4V-wa5" id="cuY-VA-BpK"/>
+                        <outlet property="chineseNameTextField" destination="OMN-JM-Lhw" id="oUn-eu-npi"/>
                         <outlet property="comeFromTextField" destination="Oay-RY-ZxN" id="QkF-UH-Yrp"/>
                         <outlet property="confirmNewDataButton" destination="DvV-Ff-zAZ" id="Rjd-b3-g8C"/>
                         <outlet property="constellationTextField" destination="oez-UJ-Bjd" id="jcu-ok-kwN"/>
@@ -1119,15 +1119,15 @@
                                     <scrollView borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6ej-wS-Cu3">
                                         <rect key="frame" x="270" y="1" width="524" height="269"/>
                                         <clipView key="contentView" drawsBackground="NO" id="kzp-Zw-7eN">
-                                            <rect key="frame" x="0.0" y="0.0" width="524" height="269"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="509" height="269"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <textView importsGraphics="NO" richText="NO" verticallyResizable="YES" spellingCorrection="YES" smartInsertDelete="YES" id="9dn-Nl-rqe">
-                                                    <rect key="frame" x="0.0" y="0.0" width="524" height="269"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="509" height="269"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                    <size key="minSize" width="524" height="269"/>
+                                                    <size key="minSize" width="509" height="269"/>
                                                     <size key="maxSize" width="1121" height="10000000"/>
                                                     <color key="insertionPointColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                 </textView>
@@ -1138,7 +1138,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                         <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="Cdj-4W-vIp">
-                                            <rect key="frame" x="508" y="0.0" width="16" height="269"/>
+                                            <rect key="frame" x="509" y="0.0" width="15" height="269"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                     </scrollView>

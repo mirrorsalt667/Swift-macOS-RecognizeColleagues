@@ -154,26 +154,25 @@ extension FileViewController {
     @IBAction func selectFolderClicked(_ sender: Any) {
         // 1 確認視窗存在
         guard let window = view.window else { return }
-        
         // 2 顯示NSOpenPanel
         let panel = NSOpenPanel()
         // 檔案
-        panel.canChooseFiles = false
+        panel.canChooseFiles = true
         // 目錄
-        panel.canChooseDirectories = true
+        panel.canChooseDirectories = false
         // 多選
         panel.allowsMultipleSelection = false
-        
         // 3 閉包等待顯現結果
-        panel.beginSheetModal(for: window) { (result) in
+        panel.beginSheetModal(for: window) { [weak self] (result) in
             if result == NSApplication.ModalResponse.OK {
                 // 4
-                self.selectedFolder = panel.urls[0]
-                print("選擇的資料夾：", self.selectedFolder!)
+                let fileURL = panel.urls[0]
+                print("選擇的檔案：", fileURL)
+                self?.saveToDirectoryAndSaveIndex(selectFileURL: fileURL)
             }
         }
-
     }
+    
     @IBAction func toggleShowInvisibles(_ sender: NSButton) {
         // 1
         showInvisibles = (sender.state == NSControl.StateValue.on)
@@ -212,7 +211,7 @@ extension FileViewController {
     }
     // 儲存
     @IBAction func saveInfoClicked(_ sender: Any) {
-        saveToMenu()
+        
 //        // 1
 //        guard let window = view.window else { return }
 //        guard let selectedItem = selectedItem else { return }
@@ -244,38 +243,52 @@ extension FileViewController {
 //        }
     }
     
-    func saveToMenu() {
-//        let panel = NSSavePanel()
-        print(selectedFileURL!)
-        let bundleFile = selectedFileURL!
+    func saveToDirectoryAndSaveIndex(selectFileURL: URL) {
         let appDirectory = FileManager.default.urls(for: .applicationDirectory, in: .userDomainMask).first!
-        let newAppDirectory = appDirectory.appendingPathComponent("colleagues1").appendingPathExtension("png")
+        // 先製造application資料夾
         do {
-            try  FileManager().createDirectory(atPath: appDirectory.path, withIntermediateDirectories: false, attributes: nil)
+            try FileManager().createDirectory(at: appDirectory, withIntermediateDirectories: false, attributes: nil)
         } catch let createError {
-            print("製造資料夾錯誤：", createError)
+            print("生成application資料夾錯誤：", createError)
         }
-        
-//        panel.directoryURL = FileManager.default.urls(for: .desktopDirectory, in: .userDomainMask).first!
-//        panel.message = "colleagues data"
-//        panel.nameFieldStringValue = "SaveFile"
-//        panel.showsHiddenFiles = false
-//        panel.showsTagField = false
-//        panel.canCreateDirectories = true
-//        panel.allowsOtherFileTypes = true
-//        panel.isExtensionHidden = false
-        
-//        if let url = panel.url,
-//           panel.runModal() == NSApplication.ModalResponse.OK {
-        print("now copy: ", bundleFile.path, "to: ", newAppDirectory.path)
+        // 取檔案名稱
+        // 先取得檔案序號
+        if let index = readPhotoIndex() {
+            // 已有圖片
+            let newAppDirectory = appDirectory.appendingPathComponent("colleagues-\(index)").appendingPathExtension("png")
+            print("now copy: ", selectFileURL.path, "to: ", newAppDirectory.path)
             do {
-                try FileManager().copyItem(at: bundleFile, to: newAppDirectory)
+                try FileManager().copyItem(at: selectFileURL, to: newAppDirectory)
+                // 將圖片序號存回去
+                savePhotosIndex(index: (index + 1))
             } catch let copyError {
                 print("儲存錯誤：", copyError.localizedDescription)
             }
-//        } else {
-//            print("cancel")
-//        }
+        } else {
+            // 第一張圖片
+            let newAppDirectory = appDirectory.appendingPathComponent("colleagues-1").appendingPathExtension("png")
+            print("now copy: ", selectFileURL.path, "to: ", newAppDirectory.path)
+            do {
+                try FileManager().copyItem(at: selectFileURL, to: newAppDirectory)
+                // 將圖片序號存回去
+                savePhotosIndex(index: 1)
+            } catch let copyError {
+                print("儲存錯誤：", copyError.localizedDescription)
+            }
+        }
+    }
+    
+    private func savePhotosIndex(index: Int) {
+        let userdefault = UserDefaults()
+        userdefault.setValue(index, forKey: "last_photo_index")
+    }
+    
+    private func readPhotoIndex() -> Int? {
+        let userdefault = UserDefaults()
+        if let index = userdefault.value(forKey: "last_photo_index") as? Int {
+            return index
+        }
+        return nil
     }
 }
 

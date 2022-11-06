@@ -9,22 +9,27 @@ import Foundation
 import CoreData
 import Cocoa
 
+protocol CoreDataDelegate {
+    func saveDataSuccessed(_ object: CoreDataClass)
+}
+
 final class CoreDataClass: NSObject, NSFetchedResultsControllerDelegate {
     
     let mContainer = (NSApplication.shared.delegate as! AppDelegate).persistentContainer
     let mContext = (NSApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    var mDelegate: CoreDataDelegate?
     
     
     
     // read and load data
     func loadDataBase() {
         let fetchRequestRead = NSFetchRequest<Colleagues>(entityName: "Colleagues")
-        fetchRequestRead.fetchLimit = 1
-        fetchRequestRead.predicate = NSPredicate(format: "", "")
+//        fetchRequestRead.fetchLimit = 1
+//        fetchRequestRead.predicate = NSPredicate(format: "", "")
         
         do {
             let colleaguesData = try mContext.fetch(fetchRequestRead)
-            print(colleaguesData[0])
+            print("資料庫資料", colleaguesData)
         } catch let readError {
             print(readError)
         }
@@ -45,6 +50,7 @@ final class CoreDataClass: NSObject, NSFetchedResultsControllerDelegate {
         do {
             try mContext.save()
             print("存入資料", colleagues)
+            mDelegate?.saveDataSuccessed(self)
         } catch let catchError {
             print(catchError)
         }
@@ -73,8 +79,8 @@ final class CoreDataClass: NSObject, NSFetchedResultsControllerDelegate {
     // delete
     func deleteDataBase() {
         let fetchRequestDelete = NSFetchRequest<Colleagues>(entityName: "Colleagues")
-        fetchRequestDelete.fetchLimit = 1
-        fetchRequestDelete.predicate = NSPredicate(format: "", "")
+//        fetchRequestDelete.fetchLimit = 1
+//        fetchRequestDelete.predicate = NSPredicate(format: "", "")
         
         do {
             let colleaguesDelete = try mContext.fetch(fetchRequestDelete)
