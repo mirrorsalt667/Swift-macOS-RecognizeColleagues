@@ -66,14 +66,19 @@ extension UpdateViewController {
     }
     // 儲存新員工資料
     @IBAction func saveDataAction(_ sender: NSButton) {
-        // 1 先將圖片複製到app裡面
+        // 1 檢查必填輸入框都有輸入
+        guard isTtextFieldEmpty() == false else {
+            showAlert(message: "*輸入框請輸入完整。", iconName: "exclamationmark.triangle").runModal()
+            return
+        }
+        // 2 先將圖片複製到app裡面
         guard let photoURL = mPhotoURL else { return }
         mFileManager.saveToDirectoryAndSaveIndex(selectFileURL: photoURL) { [weak self] isSuccess, url  in
             if isSuccess {
-                // 2 儲存到資料庫
+                // 3 儲存到資料庫
                 self?.saveNewData(fileURL: url)
             } else {
-                self?.showAlert(message: "儲存失敗", iconName: "circle").runModal()
+                self?.showAlert(message: "儲存失敗", iconName: "exclamationmark.triangle").runModal()
             }
         }
     }
@@ -90,7 +95,7 @@ extension UpdateViewController {
                 self?.mPhotoURL = fileURL
             } else {
                 // 不是指定格式
-                self?.showAlert(message: "圖片格式錯誤。", iconName: "moon").runModal()
+                self?.showAlert(message: "圖片格式錯誤。", iconName: "exclamationmark.triangle").runModal()
             }
         }
     }
@@ -107,44 +112,42 @@ extension UpdateViewController {
         }
     }
     
+    // 檢查輸入框
+    private func isTtextFieldEmpty() -> Bool {
+        if chineseNameTextField.stringValue != "",
+           englishNameTextField.stringValue != "" {
+//           birthMonthTextField.stringValue != "",
+//           birthDateTextField.stringValue != "",
+//           constellationTextField.stringValue != "",
+//           departmentTextField.stringValue != "",
+//           jobTitleTextField.stringValue != "",
+//           comeFromTextField.stringValue != "" {
+            return false
+        }
+        return true
+    }
+    
     // check Text field detail
-    private func checkTextFieldDetail(file: URL) -> Colleagues {
+    private func setData(file: URL) -> Colleagues {
         let newData = Colleagues(context: mCoreDateClass.mContext)
         newData.uuid = UUID()
-        if chineseNameTextField.stringValue != "" {
-            newData.chineseName = chineseNameTextField.stringValue
-        }
-        if englishNameTextField.stringValue != "" {
-            newData.englishName = englishNameTextField.stringValue
-        }
-        if birthMonthTextField.stringValue != "" &&
-            birthDateTextField.stringValue != ""
-        {
-            let month = birthMonthTextField.stringValue
-            let date = birthDateTextField.stringValue
-            newData.birthString = month + "/" + date
-        }
-        if constellationTextField.stringValue != "" {
-            newData.constellations = constellationTextField.stringValue
-        }
-        if departmentTextField.stringValue != "" {
-            newData.department = departmentTextField.stringValue
-        }
-        if jobTitleTextField.stringValue != "" {
-            newData.jobTitle = jobTitleTextField.stringValue
-        }
-        if comeFromTextField.stringValue != "" {
-            newData.from = comeFromTextField.stringValue
-        }
+        newData.chineseName = chineseNameTextField.stringValue
+        newData.englishName = englishNameTextField.stringValue
+        let month = birthMonthTextField.stringValue
+        let date = birthDateTextField.stringValue
+        newData.birthString = month + "/" + date
+        newData.constellations = constellationTextField.stringValue
+        newData.department = departmentTextField.stringValue
+        newData.jobTitle = jobTitleTextField.stringValue
+        newData.from = comeFromTextField.stringValue
         // 圖片位置
         newData.photo = file.path
-        
         return newData
     }
     
     // save data
     private func saveNewData(fileURL: URL) {
-        mCoreDateClass.newDataBase(new: checkTextFieldDetail(file: fileURL))
+        mCoreDateClass.newDataBase(new: setData(file: fileURL))
     }
     
     // alert
@@ -227,6 +230,7 @@ extension UpdateViewController: NSTextFieldDelegate {
 extension UpdateViewController: CoreDataDelegate {
     // 儲存資料成功
     func saveDataSuccessed(_ object: CoreDataClass) {
+        showAlert(message: "儲存成功。", iconName: "checkmark.square").runModal()
         cleanTextFieldAndImage()
     }
 }
