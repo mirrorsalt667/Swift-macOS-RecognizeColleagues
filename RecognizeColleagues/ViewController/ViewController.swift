@@ -13,14 +13,6 @@ final class ViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-    
-//    override func viewDidLayout() {
-//        super.viewDidLayout()
-//        if let size = NSScreen.main?.frame {
-//            print("螢幕尺寸: ", size)
-//            self.view.frame = size
-//        }
-//    }
 
     override var representedObject: Any? {
         didSet {}

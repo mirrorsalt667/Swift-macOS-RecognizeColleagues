@@ -204,11 +204,9 @@ extension UpdateViewController {
         confirmNewDataButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         confirmNewDataButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: (toTopHeight * -1)).isActive = true
     }
-    
-    // Style
-    private func viewStyle() {
-    }
 }
+
+// MARK: Text Field
 
 extension UpdateViewController: NSTextFieldDelegate {
     func controlTextDidEndEditing(_ obj: Notification) {

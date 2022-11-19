@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C7124ADF292109C0008C1432 /* DetailCollectionViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7124ADD292109C0008C1432 /* DetailCollectionViewItem.swift */; };
+		C7124AE0292109C0008C1432 /* DetailCollectionViewItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = C7124ADE292109C0008C1432 /* DetailCollectionViewItem.xib */; };
 		C740C6F8290CF00800CC9758 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C740C6F7290CF00800CC9758 /* AppDelegate.swift */; };
 		C740C6FA290CF00800CC9758 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C740C6F9290CF00800CC9758 /* ViewController.swift */; };
 		C740C6FD290CF00800CC9758 /* RecognizeColleagues.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C740C6FB290CF00800CC9758 /* RecognizeColleagues.xcdatamodeld */; };
@@ -18,10 +20,13 @@
 		C740C711290E18CE00CC9758 /* UpdateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C740C70F290E18CE00CC9758 /* UpdateViewController.swift */; };
 		C740C714290E198200CC9758 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C740C713290E198200CC9758 /* ListViewController.swift */; };
 		C7942859290EAE31006E921C /* FileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7942858290EAE31006E921C /* FileViewController.swift */; };
+		C7A9E22B291FFF5000265D10 /* ListCollectionViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A9E22A291FFF5000265D10 /* ListCollectionViewItem.swift */; };
 		C7E55218291779F30093BDE0 /* FileManagerObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E55217291779F30093BDE0 /* FileManagerObject.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C7124ADD292109C0008C1432 /* DetailCollectionViewItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailCollectionViewItem.swift; sourceTree = "<group>"; };
+		C7124ADE292109C0008C1432 /* DetailCollectionViewItem.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailCollectionViewItem.xib; sourceTree = "<group>"; };
 		C740C6F4290CF00800CC9758 /* RecognizeColleagues.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RecognizeColleagues.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C740C6F7290CF00800CC9758 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C740C6F9290CF00800CC9758 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -35,6 +40,7 @@
 		C740C70F290E18CE00CC9758 /* UpdateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateViewController.swift; sourceTree = "<group>"; };
 		C740C713290E198200CC9758 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		C7942858290EAE31006E921C /* FileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileViewController.swift; sourceTree = "<group>"; };
+		C7A9E22A291FFF5000265D10 /* ListCollectionViewItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCollectionViewItem.swift; sourceTree = "<group>"; };
 		C7E55217291779F30093BDE0 /* FileManagerObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManagerObject.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -97,6 +103,9 @@
 				C740C709290D087B00CC9758 /* GameViewController.swift */,
 				C740C70F290E18CE00CC9758 /* UpdateViewController.swift */,
 				C740C713290E198200CC9758 /* ListViewController.swift */,
+				C7A9E22A291FFF5000265D10 /* ListCollectionViewItem.swift */,
+				C7124ADD292109C0008C1432 /* DetailCollectionViewItem.swift */,
+				C7124ADE292109C0008C1432 /* DetailCollectionViewItem.xib */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -159,6 +168,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C7124AE0292109C0008C1432 /* DetailCollectionViewItem.xib in Resources */,
 				C740C6FF290CF00900CC9758 /* Assets.xcassets in Resources */,
 				C740C702290CF00900CC9758 /* Main.storyboard in Resources */,
 			);
@@ -171,11 +181,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C7A9E22B291FFF5000265D10 /* ListCollectionViewItem.swift in Sources */,
 				C7E55218291779F30093BDE0 /* FileManagerObject.swift in Sources */,
 				C7942859290EAE31006E921C /* FileViewController.swift in Sources */,
 				C740C70A290D087B00CC9758 /* GameViewController.swift in Sources */,
 				C740C6FD290CF00800CC9758 /* RecognizeColleagues.xcdatamodeld in Sources */,
 				C740C6FA290CF00800CC9758 /* ViewController.swift in Sources */,
+				C7124ADF292109C0008C1432 /* DetailCollectionViewItem.swift in Sources */,
 				C740C70E290D71E700CC9758 /* CoreDataClass.swift in Sources */,
 				C740C70C290D683600CC9758 /* Constellations.swift in Sources */,
 				C740C711290E18CE00CC9758 /* UpdateViewController.swift in Sources */,
