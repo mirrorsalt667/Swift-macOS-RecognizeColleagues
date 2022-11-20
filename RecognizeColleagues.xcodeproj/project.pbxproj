@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C7115D13292918AA005685C6 /* EditEmployeeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7115D11292918AA005685C6 /* EditEmployeeViewController.swift */; };
+		C7115D14292918AA005685C6 /* EditEmployeeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C7115D12292918AA005685C6 /* EditEmployeeViewController.xib */; };
 		C7124ADF292109C0008C1432 /* DetailCollectionViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7124ADD292109C0008C1432 /* DetailCollectionViewItem.swift */; };
 		C7124AE0292109C0008C1432 /* DetailCollectionViewItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = C7124ADE292109C0008C1432 /* DetailCollectionViewItem.xib */; };
 		C740C6F8290CF00800CC9758 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C740C6F7290CF00800CC9758 /* AppDelegate.swift */; };
@@ -25,6 +27,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C7115D11292918AA005685C6 /* EditEmployeeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditEmployeeViewController.swift; sourceTree = "<group>"; };
+		C7115D12292918AA005685C6 /* EditEmployeeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditEmployeeViewController.xib; sourceTree = "<group>"; };
 		C7124ADD292109C0008C1432 /* DetailCollectionViewItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailCollectionViewItem.swift; sourceTree = "<group>"; };
 		C7124ADE292109C0008C1432 /* DetailCollectionViewItem.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailCollectionViewItem.xib; sourceTree = "<group>"; };
 		C740C6F4290CF00800CC9758 /* RecognizeColleagues.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RecognizeColleagues.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -106,6 +110,8 @@
 				C7A9E22A291FFF5000265D10 /* ListCollectionViewItem.swift */,
 				C7124ADD292109C0008C1432 /* DetailCollectionViewItem.swift */,
 				C7124ADE292109C0008C1432 /* DetailCollectionViewItem.xib */,
+				C7115D11292918AA005685C6 /* EditEmployeeViewController.swift */,
+				C7115D12292918AA005685C6 /* EditEmployeeViewController.xib */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -168,6 +174,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C7115D14292918AA005685C6 /* EditEmployeeViewController.xib in Resources */,
 				C7124AE0292109C0008C1432 /* DetailCollectionViewItem.xib in Resources */,
 				C740C6FF290CF00900CC9758 /* Assets.xcassets in Resources */,
 				C740C702290CF00900CC9758 /* Main.storyboard in Resources */,
@@ -187,6 +194,7 @@
 				C740C70A290D087B00CC9758 /* GameViewController.swift in Sources */,
 				C740C6FD290CF00800CC9758 /* RecognizeColleagues.xcdatamodeld in Sources */,
 				C740C6FA290CF00800CC9758 /* ViewController.swift in Sources */,
+				C7115D13292918AA005685C6 /* EditEmployeeViewController.swift in Sources */,
 				C7124ADF292109C0008C1432 /* DetailCollectionViewItem.swift in Sources */,
 				C740C70E290D71E700CC9758 /* CoreDataClass.swift in Sources */,
 				C740C70C290D683600CC9758 /* Constellations.swift in Sources */,

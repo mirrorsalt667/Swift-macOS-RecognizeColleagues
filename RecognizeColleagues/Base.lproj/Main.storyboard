@@ -1328,14 +1328,27 @@
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="yDx-tz-q2U">
+                                <rect key="frame" x="13" y="407" width="61" height="32"/>
+                                <buttonCell key="cell" type="push" title="返回" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ZcT-9c-AIL">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="backFrontPageAction:" target="2nj-Ik-bSx" id="jED-eb-gYC"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <constraints>
                             <constraint firstItem="r03-n0-5dh" firstAttribute="top" secondItem="A6B-Tp-1bM" secondAttribute="top" constant="25" id="1H2-gD-UNn"/>
                             <constraint firstAttribute="bottom" secondItem="d6T-fS-p26" secondAttribute="bottom" constant="20" id="B0P-lD-Vbj"/>
+                            <constraint firstItem="r03-n0-5dh" firstAttribute="leading" secondItem="yDx-tz-q2U" secondAttribute="trailing" constant="218" id="XGh-fv-UdH"/>
                             <constraint firstItem="d6T-fS-p26" firstAttribute="leading" secondItem="A6B-Tp-1bM" secondAttribute="leading" constant="20" id="cMn-TQ-yVE"/>
                             <constraint firstAttribute="trailing" secondItem="d6T-fS-p26" secondAttribute="trailing" constant="20" id="ck1-t8-l7Q"/>
+                            <constraint firstItem="yDx-tz-q2U" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="A6B-Tp-1bM" secondAttribute="leading" constant="20" id="d5b-VW-dpO"/>
                             <constraint firstItem="d6T-fS-p26" firstAttribute="top" secondItem="r03-n0-5dh" secondAttribute="bottom" constant="8" id="heR-6B-JtB"/>
                             <constraint firstItem="r03-n0-5dh" firstAttribute="centerX" secondItem="A6B-Tp-1bM" secondAttribute="centerX" id="q4f-sT-jB0"/>
+                            <constraint firstItem="d6T-fS-p26" firstAttribute="top" secondItem="yDx-tz-q2U" secondAttribute="bottom" constant="8" id="v4Y-yh-olg"/>
                         </constraints>
                     </view>
                     <connections>

@@ -7,10 +7,20 @@
 
 import Cocoa
 
-final class DetailCollectionViewItem: NSCollectionViewItem {
+protocol DetailCollectionViewDelegate: AnyObject {
+    func selectEditItem(_ item: DetailCollectionViewItem, selectItem: Int)
+}
 
+final class DetailCollectionViewItem: NSCollectionViewItem {
+    // MARK: - Properties
+    
     @IBOutlet weak var peopleImageView: NSImageView!
     @IBOutlet weak var peopleLabel: NSTextField!
+    
+    public var mDelegate: DetailCollectionViewDelegate?
+    public var mIndexPathRow: Int?
+    
+    // MARK: - Methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,4 +32,10 @@ final class DetailCollectionViewItem: NSCollectionViewItem {
         view.layer?.borderWidth = 1
     }
     
+    @IBAction private func editItemClickAction(_: Any) {
+        if let indexPathRow = mIndexPathRow {
+            print("點擊的item：", indexPathRow)
+            mDelegate?.selectEditItem(self, selectItem: indexPathRow)
+        }
+    }
 }

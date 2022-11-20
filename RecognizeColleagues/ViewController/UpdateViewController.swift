@@ -11,19 +11,19 @@ import CoreData
 
 final class UpdateViewController: NSViewController {
 
-    @IBOutlet weak var pageTitleLabel: NSTextField!
-    @IBOutlet weak var backButton: NSButton!
-    @IBOutlet weak var listStackView: NSStackView!
-    @IBOutlet weak var chineseNameTextField: NSTextField!
-    @IBOutlet weak var englishNameTextField: NSTextField!
-    @IBOutlet weak var birthMonthTextField: NSTextField!
-    @IBOutlet weak var birthDateTextField: NSTextField!
-    @IBOutlet weak var constellationTextField: NSTextField!
-    @IBOutlet weak var departmentTextField: NSTextField!
-    @IBOutlet weak var jobTitleTextField: NSTextField!
-    @IBOutlet weak var comeFromTextField: NSTextField!
-    @IBOutlet weak var photoButton: NSButton!
-    @IBOutlet weak var confirmNewDataButton: NSButton!
+    @IBOutlet private weak var pageTitleLabel: NSTextField!
+    @IBOutlet private weak var backButton: NSButton!
+    @IBOutlet private weak var listStackView: NSStackView!
+    @IBOutlet private weak var chineseNameTextField: NSTextField!
+    @IBOutlet private weak var englishNameTextField: NSTextField!
+    @IBOutlet private weak var birthMonthTextField: NSTextField!
+    @IBOutlet private weak var birthDateTextField: NSTextField!
+    @IBOutlet private weak var constellationTextField: NSTextField!
+    @IBOutlet private weak var departmentTextField: NSTextField!
+    @IBOutlet private weak var jobTitleTextField: NSTextField!
+    @IBOutlet private weak var comeFromTextField: NSTextField!
+    @IBOutlet private weak var photoButton: NSButton!
+    @IBOutlet private weak var confirmNewDataButton: NSButton!
     
     // MARK: init variables
     
@@ -51,21 +51,21 @@ final class UpdateViewController: NSViewController {
         }
     }
     
-    override func viewDidAppear() {
-        super.viewDidAppear()
-        mCoreDateClass.loadDataBase()
-    }
+//    override func viewDidAppear() {
+//        super.viewDidAppear()
+//        mCoreDateClass.loadDataBase()
+//    }
 }
 
 // MARK: Action
 
 extension UpdateViewController {
     // 回到前一頁
-    @IBAction func backFrontPageAction(_ sender: Any) {
+    @IBAction private func backFrontPageAction(_ sender: Any) {
         backToFrontPage()
     }
     // 儲存新員工資料
-    @IBAction func saveDataAction(_ sender: NSButton) {
+    @IBAction private func saveDataAction(_ sender: NSButton) {
         // 1 檢查必填輸入框都有輸入
         guard isTtextFieldEmpty() == false else {
             showAlert(message: "*輸入框請輸入完整。", iconName: "exclamationmark.triangle").runModal()
@@ -83,7 +83,7 @@ extension UpdateViewController {
         }
     }
     // 開啟檔案頁面，選擇圖片
-    @IBAction func selectFileAction(_ sender: Any) {
+    @IBAction private func selectFileAction(_ sender: Any) {
         guard let window = view.window else { return }
         mFileManager.openFilePanel(window: window) { [weak self] fileURL in
             let fileExtension = fileURL.pathExtension.lowercased()
@@ -108,7 +108,7 @@ extension UpdateViewController {
     //back to front page
     private func backToFrontPage() {
         if let frontPage = storyboard?.instantiateController(withIdentifier: "ViewController") as? ViewController {
-        self.view.window?.contentViewController = frontPage
+            self.view.window?.contentViewController = frontPage
         }
     }
     

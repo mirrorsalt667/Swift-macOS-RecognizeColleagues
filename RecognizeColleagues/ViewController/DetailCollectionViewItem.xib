@@ -34,8 +34,11 @@
                     <rect key="frame" x="216" y="165" width="61" height="32"/>
                     <buttonCell key="cell" type="push" title="編輯" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Pva-6a-xsI">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" size="13" name=".PingFangTC-Regular"/>
+                        <font key="font" metaFont="system"/>
                     </buttonCell>
+                    <connections>
+                        <action selector="editItemClickAction:" target="-2" id="PmG-ID-PbY"/>
+                    </connections>
                 </button>
             </subviews>
             <constraints>

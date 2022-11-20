@@ -9,7 +9,7 @@ import Foundation
 import CoreData
 import Cocoa
 
-protocol CoreDataDelegate {
+protocol CoreDataDelegate: AnyObject {
     func saveDataSuccessed(_ object: CoreDataClass)
 }
 
@@ -22,7 +22,7 @@ final class CoreDataClass: NSObject, NSFetchedResultsControllerDelegate {
     
     
     // read and load data
-    func loadDataBase() {
+    func loadDataBase(callBack: @escaping ([Colleagues]) -> (Void)) {
         let fetchRequestRead = NSFetchRequest<Colleagues>(entityName: "Colleagues")
 //        fetchRequestRead.fetchLimit = 1
 //        fetchRequestRead.predicate = NSPredicate(format: "", "")
@@ -30,8 +30,9 @@ final class CoreDataClass: NSObject, NSFetchedResultsControllerDelegate {
         do {
             let colleaguesData = try mContext.fetch(fetchRequestRead)
             print("資料庫資料", colleaguesData)
+            callBack(colleaguesData)
         } catch let readError {
-            print(readError)
+            print("讀取資料庫發生錯誤：", readError)
         }
     }
     
