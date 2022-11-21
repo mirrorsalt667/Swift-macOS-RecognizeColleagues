@@ -305,6 +305,9 @@
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
+                    <connections>
+                        <action selector="saveDataAction:" target="-2" id="2Ua-79-T15"/>
+                    </connections>
                 </button>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="vgX-Au-q4Z">
                     <rect key="frame" x="13" y="226" width="61" height="32"/>

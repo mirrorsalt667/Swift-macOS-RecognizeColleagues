@@ -9,7 +9,9 @@ import Foundation
 import Cocoa
 
 final class FileManagerObject {
+    // MARK: - Public Methods
     
+    // 打開檔案視窗
     func openFilePanel(window: NSWindow, handler: @escaping (URL) -> (Void) ) {
         // 1 確認視窗存在
 //        guard let window = view.window else { return }
@@ -37,7 +39,7 @@ final class FileManagerObject {
             }
         }
     }
-    
+    // 生成指定的資料夾，然後生成新的檔案名稱，並儲存圖片在指定的資料夾。
     func saveToDirectoryAndSaveIndex(selectFileURL: URL, handler: @escaping (Bool, URL) -> (Void)) {
         var isSaveSuccessed = false
         let appDirectory = FileManager.default.urls(for: .applicationDirectory, in: .userDomainMask).first!
@@ -51,7 +53,7 @@ final class FileManagerObject {
         // 先取得檔案序號
         if let index = readPhotoIndex() {
             // 已有圖片
-            let newAppDirectory = appDirectory.appendingPathComponent("colleagues-\(index)").appendingPathExtension("png")
+            let newAppDirectory = appDirectory.appendingPathComponent("colleagues-\(index + 1)").appendingPathExtension("png")
             print("now copy: ", selectFileURL.path, "to: ", newAppDirectory.path)
             do {
                 try FileManager().copyItem(at: selectFileURL, to: newAppDirectory)
@@ -79,12 +81,25 @@ final class FileManagerObject {
             }
         }
     }
+    // 刪除指定的檔案
+    func deleteFileInDirectory(fileURL: URL, handle: @escaping (Bool) -> (Void)) {
+        do {
+            try FileManager().removeItem(atPath: fileURL.path)
+            handle(true)
+        } catch let deleteError {
+            print("刪除檔案錯誤：", deleteError.localizedDescription)
+            handle(false)
+        }
+    }
     
+    // MARK: - Private Methods
+    
+    // 儲存檔案名稱目前序號
     private func savePhotosIndex(index: Int) {
         let userdefault = UserDefaults()
         userdefault.setValue(index, forKey: "last_photo_index")
     }
-    
+    // 讀取檔案名稱目前序號
     private func readPhotoIndex() -> Int? {
         let userdefault = UserDefaults()
         if let index = userdefault.value(forKey: "last_photo_index") as? Int {

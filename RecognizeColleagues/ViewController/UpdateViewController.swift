@@ -50,11 +50,6 @@ final class UpdateViewController: NSViewController {
             mIsFirstTimeLoad = false
         }
     }
-    
-//    override func viewDidAppear() {
-//        super.viewDidAppear()
-//        mCoreDateClass.loadDataBase()
-//    }
 }
 
 // MARK: Action
@@ -68,7 +63,7 @@ extension UpdateViewController {
     @IBAction private func saveDataAction(_ sender: NSButton) {
         // 1 檢查必填輸入框都有輸入
         guard isTtextFieldEmpty() == false else {
-            showAlert(message: "*輸入框請輸入完整。", iconName: "exclamationmark.triangle").runModal()
+            showAlert(message: "*輸入框請勿空白。", iconName: "exclamationmark.triangle").runModal()
             return
         }
         // 2 先將圖片複製到app裡面
@@ -76,7 +71,19 @@ extension UpdateViewController {
         mFileManager.saveToDirectoryAndSaveIndex(selectFileURL: photoURL) { [weak self] isSuccess, url  in
             if isSuccess {
                 // 3 儲存到資料庫
-                self?.saveNewData(fileURL: url)
+                let month = self!.birthMonthTextField.stringValue
+                let date = self!.birthDateTextField.stringValue
+                self?.mCoreDateClass.newItemInDataBase(
+                    uuid: UUID(),
+                    chinese: self!.chineseNameTextField.stringValue,
+                    english: self!.englishNameTextField.stringValue,
+                    birth: month+"/"+date,
+                    constellation: self!.constellationTextField.stringValue,
+                    department: self!.departmentTextField.stringValue,
+                    job: self!.jobTitleTextField.stringValue,
+                    from: self!.comeFromTextField.stringValue,
+                    photo: url.path
+                )
             } else {
                 self?.showAlert(message: "儲存失敗", iconName: "exclamationmark.triangle").runModal()
             }
@@ -107,7 +114,8 @@ extension UpdateViewController {
     
     //back to front page
     private func backToFrontPage() {
-        if let frontPage = storyboard?.instantiateController(withIdentifier: "ViewController") as? ViewController {
+        let storyboard = NSStoryboard(name: "Main", bundle: nil)
+        if let frontPage = storyboard.instantiateController(withIdentifier: "ViewController") as? ViewController {
             self.view.window?.contentViewController = frontPage
         }
     }
@@ -127,29 +135,6 @@ extension UpdateViewController {
         return true
     }
     
-    // check Text field detail
-    private func setData(file: URL) -> Colleagues {
-        let newData = Colleagues(context: mCoreDateClass.mContext)
-        newData.uuid = UUID()
-        newData.chineseName = chineseNameTextField.stringValue
-        newData.englishName = englishNameTextField.stringValue
-        let month = birthMonthTextField.stringValue
-        let date = birthDateTextField.stringValue
-        newData.birthString = month + "/" + date
-        newData.constellations = constellationTextField.stringValue
-        newData.department = departmentTextField.stringValue
-        newData.jobTitle = jobTitleTextField.stringValue
-        newData.from = comeFromTextField.stringValue
-        // 圖片位置
-        newData.photo = file.path
-        return newData
-    }
-    
-    // save data
-    private func saveNewData(fileURL: URL) {
-        mCoreDateClass.newDataBase(new: setData(file: fileURL))
-    }
-    
     // alert
     private func showAlert(message: String, iconName: String) -> NSAlert {
         let alertController = NSAlert()
@@ -159,7 +144,7 @@ extension UpdateViewController {
         return alertController
     }
     
-    // 儲存成功後
+    // 儲存成功後，清空顯示的資料
     private func cleanTextFieldAndImage() {
         chineseNameTextField.stringValue = ""
         englishNameTextField.stringValue = ""
@@ -227,7 +212,7 @@ extension UpdateViewController: NSTextFieldDelegate {
 
 extension UpdateViewController: CoreDataDelegate {
     // 儲存資料成功
-    func saveDataSuccessed(_ object: CoreDataClass) {
+    func saveDataSuccessed(_ object: CoreDataClass, isPhotoDelete: Bool) {
         showAlert(message: "儲存成功。", iconName: "checkmark.square").runModal()
         cleanTextFieldAndImage()
     }

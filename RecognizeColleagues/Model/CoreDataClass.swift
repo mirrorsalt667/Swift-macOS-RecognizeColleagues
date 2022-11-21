@@ -10,7 +10,7 @@ import CoreData
 import Cocoa
 
 protocol CoreDataDelegate: AnyObject {
-    func saveDataSuccessed(_ object: CoreDataClass)
+    func saveDataSuccessed(_ object: CoreDataClass, isPhotoDelete: Bool)
 }
 
 final class CoreDataClass: NSObject, NSFetchedResultsControllerDelegate {
@@ -37,45 +37,87 @@ final class CoreDataClass: NSObject, NSFetchedResultsControllerDelegate {
     }
     
     // 新增資料
-    func newDataBase(new: Colleagues) {
-        let colleagues = NSEntityDescription.insertNewObject(forEntityName: "Colleagues", into: mContext) as! Colleagues
-        colleagues.uuid = new.uuid
-        colleagues.chineseName = new.chineseName
-        colleagues.englishName = new.englishName
-        colleagues.birthString = new.birthString
-        colleagues.constellations = new.constellations
-        colleagues.department = new.department
-        colleagues.jobTitle = new.jobTitle
-        colleagues.from = new.from
-        colleagues.photo = new.photo
+    func newItemInDataBase(uuid: UUID,
+                     chinese: String,
+                     english: String,
+                     birth: String,
+                     constellation: String,
+                     department: String,
+                     job: String,
+                     from: String,
+                     photo: String
+    ) {
+//        let colleagues = NSEntityDescription.insertNewObject(forEntityName: "Colleagues", into: mContext) as! Colleagues
+        let colleague = Colleagues(context: mContext)
+        colleague.uuid = uuid
+        colleague.chineseName = chinese
+        colleague.englishName = english
+        colleague.birthString = birth
+        colleague.constellations = constellation
+        colleague.department = department
+        colleague.jobTitle = job
+        colleague.from = from
+        colleague.photo = photo
         do {
             try mContext.save()
-            print("存入資料", colleagues)
-            mDelegate?.saveDataSuccessed(self)
+            print("存入資料：", colleague)
+            mDelegate?.saveDataSuccessed(self, isPhotoDelete: false)
         } catch let catchError {
-            print(catchError)
+            print("存入資料錯誤：", catchError)
         }
     }
     
     // 更新
-    func uploadDataBase(chineseName: String) {
-        let fetchRequestUpdate = NSFetchRequest<Colleagues>(entityName: "Colleagues")
-        fetchRequestUpdate.fetchLimit = 1
-        fetchRequestUpdate.predicate = NSPredicate(format: "", "")
-        
+    func updateItemInDataBase(uuid: UUID, newName: String) {
+        let request = NSFetchRequest<Colleagues>(entityName: "Colleagues")
+        request.predicate = NSPredicate(format: "uuid == %@", uuid as CVarArg)
         do {
-            let colleaguesUpdate = try mContext.fetch(fetchRequestUpdate)
-            colleaguesUpdate[0].chineseName = chineseName
-            // 存回去
+            let result = try mContext.fetch(request)
+            print("取得更新前資料：", result)
+            if result.count > 0 {
+                result[0].englishName = newName
+            }
             do {
                 try mContext.save()
-            } catch let savrError {
-                print("update save error: ", savrError)
+                mDelegate?.saveDataSuccessed(self, isPhotoDelete: true)
+            } catch let saveError {
+                print("更新後儲存錯誤：", saveError)
             }
-        } catch let fetchError {
-            print(fetchError)
+        } catch let checkError {
+            print("更新前取得資料失敗：", checkError)
         }
     }
+//    func updateDataBase(uuid: UUID, updateItem: Colleagues) {
+//        let fetchRequestUpdate = NSFetchRequest<Colleagues>(entityName: "Colleagues")
+//        fetchRequestUpdate.fetchLimit = 1
+//        fetchRequestUpdate.predicate = NSPredicate(format: "uuid = \(uuid)")
+//        do {
+//            let colleaguesUpdate = try mContext.fetch(fetchRequestUpdate)
+//            print("讀取部分資料庫：", colleaguesUpdate)
+//            if colleaguesUpdate.count == 1 {
+//                colleaguesUpdate[0].chineseName = updateItem.chineseName
+//                colleaguesUpdate[0].englishName = updateItem.englishName
+//                colleaguesUpdate[0].birthString = updateItem.birthString
+//                colleaguesUpdate[0].constellations = updateItem.constellations
+//                colleaguesUpdate[0].department = updateItem.department
+//                colleaguesUpdate[0].jobTitle = updateItem.jobTitle
+//                colleaguesUpdate[0].from = updateItem.from
+//                colleaguesUpdate[0].photo = updateItem.photo
+//                print("更新的資料：", colleaguesUpdate)
+//                // 存回去
+//                do {
+//                    try mContext.save()
+//                    mDelegate?.saveDataSuccessed(self)
+//                } catch let savrError {
+//                    print("更新資料儲存時錯誤：", savrError)
+//                }
+//            } else {
+//                print("檔案不只一個")
+//            }
+//        } catch let fetchError {
+//            print("更新資料讀取時錯誤：", fetchError)
+//        }
+//    }
     
     // delete
     func deleteDataBase() {
