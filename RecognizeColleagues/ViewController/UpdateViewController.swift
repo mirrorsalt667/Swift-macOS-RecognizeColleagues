@@ -214,6 +214,8 @@ extension UpdateViewController: CoreDataDelegate {
     // 儲存資料成功
     func saveDataSuccessed(_ object: CoreDataClass, isPhotoDelete: Bool) {
         showAlert(message: "儲存成功。", iconName: "checkmark.square").runModal()
+        // 清空內容
         cleanTextFieldAndImage()
     }
+    func isDeleteDataSuccessed(_ object: CoreDataClass, isSuccessed: Bool) {}
 }

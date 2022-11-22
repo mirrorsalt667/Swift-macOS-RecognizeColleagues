@@ -11,6 +11,7 @@ import Cocoa
 
 protocol CoreDataDelegate: AnyObject {
     func saveDataSuccessed(_ object: CoreDataClass, isPhotoDelete: Bool)
+    func isDeleteDataSuccessed(_ object: CoreDataClass, isSuccessed: Bool)
 }
 
 final class CoreDataClass: NSObject, NSFetchedResultsControllerDelegate {
@@ -68,14 +69,30 @@ final class CoreDataClass: NSObject, NSFetchedResultsControllerDelegate {
     }
     
     // 更新
-    func updateItemInDataBase(uuid: UUID, newName: String) {
+    func updateItemInDataBase(uuid: UUID,
+                              chinese: String,
+                              english: String,
+                              birth: String,
+                              constellation: String,
+                              department: String,
+                              job: String,
+                              from: String,
+                              photo: String
+    ) {
         let request = NSFetchRequest<Colleagues>(entityName: "Colleagues")
         request.predicate = NSPredicate(format: "uuid == %@", uuid as CVarArg)
         do {
             let result = try mContext.fetch(request)
             print("取得更新前資料：", result)
             if result.count > 0 {
-                result[0].englishName = newName
+                result[0].chineseName = chinese
+                result[0].englishName = english
+                result[0].birthString = birth
+                result[0].constellations = constellation
+                result[0].department = department
+                result[0].jobTitle = job
+                result[0].from = from
+                result[0].photo = photo
             }
             do {
                 try mContext.save()
@@ -120,22 +137,24 @@ final class CoreDataClass: NSObject, NSFetchedResultsControllerDelegate {
 //    }
     
     // delete
-    func deleteDataBase() {
+    func deleteDataBase(uuid: UUID) {
         let fetchRequestDelete = NSFetchRequest<Colleagues>(entityName: "Colleagues")
-//        fetchRequestDelete.fetchLimit = 1
-//        fetchRequestDelete.predicate = NSPredicate(format: "", "")
-        
+        fetchRequestDelete.predicate = NSPredicate(format: "uuid == %@", uuid as CVarArg)
         do {
             let colleaguesDelete = try mContext.fetch(fetchRequestDelete)
-            mContext.delete(colleaguesDelete[0])
-            // 存回去
+            if colleaguesDelete.count > 0 {
+                mContext.delete(colleaguesDelete[0])
+            }
             do {
                 try mContext.save()
-            } catch let savrError {
-                print("update save error: ", savrError)
+                mDelegate?.isDeleteDataSuccessed(self, isSuccessed: true)
+            } catch let saveError {
+                print("刪除後儲存失敗：", saveError)
+                mDelegate?.isDeleteDataSuccessed(self, isSuccessed: false)
             }
-        } catch let fetchError {
-            print(fetchError)
+        } catch let deleteError {
+            print("刪除時發生錯誤：", deleteError)
+            mDelegate?.isDeleteDataSuccessed(self, isSuccessed: false)
         }
     }
 }

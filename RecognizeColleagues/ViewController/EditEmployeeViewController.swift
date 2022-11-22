@@ -30,7 +30,7 @@ final class EditEmployeeViewController: NSViewController {
     private let mConstellation = ConstellationsClass()
     private let mFileManager = FileManagerObject()
     private var mIsFirstTimeLoad = true
-    private var mPhotoURL: URL?
+    private var mNewPhotoURL: URL?
     private var mWillDeleteFileURL: URL?
     
     // MARK: - View Life Circle
@@ -42,6 +42,7 @@ final class EditEmployeeViewController: NSViewController {
         mCoreDateClass.mDelegate = self
         constellationTextField.isEnabled = false
         guard let employeeData = mEmployeeData else { return }
+        print("資料：", employeeData)
         setTextFieldContent(detail: employeeData)
     }
 }
@@ -68,7 +69,7 @@ extension EditEmployeeViewController {
                 || fileExtension == "jpeg"
             {
                 self?.photoButton.image = NSImage(contentsOf: fileURL)
-                self?.mPhotoURL = fileURL
+                self?.mNewPhotoURL = fileURL
             } else {
                 self?.showAlert(message: "圖片格式錯誤。", iconName: "exclamationmark.triangle").runModal()
             }
@@ -82,14 +83,14 @@ extension EditEmployeeViewController {
             return
         }
         // 2 先判斷圖片是不是有更新
-        if mPhotoURL == nil {
+        if mNewPhotoURL == nil {
             // 3 圖片沒更新，儲存其他資料
             print("圖片沒更新")
             saveNewDataWithoutNewPhoto()
         } else {
             // 圖片更新
             print("圖片更新")
-            mFileManager.saveToDirectoryAndSaveIndex(selectFileURL: mPhotoURL!) { [weak self] isSuccess, url  in
+            mFileManager.saveToDirectoryAndSaveIndex(selectFileURL: mNewPhotoURL!) { [weak self] isSuccess, url  in
                 if isSuccess {
                     // 3 儲存到資料庫
                     self?.saveNewData(fileURL: url)
@@ -100,12 +101,20 @@ extension EditEmployeeViewController {
             }
         }
     }
+    // 刪除資料
+    @IBAction private func deleteDataAction(_: Any) {
+        mCoreDateClass.deleteDataBase(uuid: mEmployeeData!.uuid!)
+    }
 }
 
 // MARK: - Methods
 extension EditEmployeeViewController {
     // 警告提示框
     private func showAlert(message: String, iconName: String) -> NSAlert {
+        // 黃色的警告圖示
+//        let userInfo = [NSLocalizedDescriptionKey: "刪除失敗"]
+//        let error = NSError(domain: NSOSStatusErrorDomain, code: 0, userInfo: userInfo)
+//        let alertController = NSAlert(error: error)
         let alertController = NSAlert()
         alertController.icon = NSImage(systemSymbolName: iconName, accessibilityDescription: nil)
         alertController.addButton(withTitle: "確定")
@@ -128,7 +137,7 @@ extension EditEmployeeViewController {
         jobTitleTextField.stringValue = input.jobTitle ?? ""
         comeFromTextField.stringValue = input.from ?? ""
         if let urlStr = input.photo {
-            print("有url嗎？")
+            print("有url嗎")
             let image = NSImage(contentsOfFile: urlStr)
             photoButton.image = image
             // TODO: 取得舊圖片名稱，以便儲存時刪掉舊圖片
@@ -184,16 +193,47 @@ extension EditEmployeeViewController {
     }
     // 儲存資料到資料庫
     private func saveNewData(fileURL: URL) {
+        let month = birthMonthTextField.stringValue
+        let date = birthDateTextField.stringValue
         mCoreDateClass.updateItemInDataBase(
-            uuid: mEmployeeData!.uuid!, newName: englishNameTextField.stringValue
+            uuid: mEmployeeData!.uuid!,
+            chinese: chineseNameTextField.stringValue,
+            english: englishNameTextField.stringValue,
+            birth: month+"/"+date,
+            constellation: constellationTextField.stringValue,
+            department: departmentTextField.stringValue,
+            job: jobTitleTextField.stringValue,
+            from: comeFromTextField.stringValue,
+            photo: fileURL.path
         )
     }
+    // 圖片沒變
     private func saveNewDataWithoutNewPhoto() {
-        mCoreDateClass.updateItemInDataBase(uuid: mEmployeeData!.uuid!, newName: englishNameTextField.stringValue)
+        let month = birthMonthTextField.stringValue
+        let date = birthDateTextField.stringValue
+        mCoreDateClass.updateItemInDataBase(
+            uuid: mEmployeeData!.uuid!,
+            chinese: chineseNameTextField.stringValue,
+            english: englishNameTextField.stringValue,
+            birth: month+"/"+date,
+            constellation: constellationTextField.stringValue,
+            department: departmentTextField.stringValue,
+            job: jobTitleTextField.stringValue,
+            from: comeFromTextField.stringValue,
+            photo: mEmployeeData!.photo!)
     }
     // 若有新圖片時，刪除舊圖片
     private func deleteNotUseFile(fileURL: URL) {
         mFileManager.deleteFileInDirectory(fileURL: fileURL) { isSuccessed in
+            if isSuccessed {
+                print("刪除檔案成功")
+            } else {
+                print("刪除檔案失敗")
+            }
+        }
+    }
+    private func deleteNotUseFile(filePath: String) {
+        mFileManager.deleteFileInDirectory(filePath: filePath) { isSuccessed in
             if isSuccessed {
                 print("刪除檔案成功")
             } else {
@@ -212,21 +252,54 @@ extension EditEmployeeViewController: NSTextFieldDelegate {
            dateStr != "" {
             if let date = mConstellation.turnStringToDate(input: monthStr + "/" + dateStr) {
                 constellationTextField.stringValue = mConstellation.checkPersonConstellation(birth: date)
+            } else {
+                print("日期格式錯誤")
             }
-            
         }
     }
 }
 
 // MARK: - Core Data Delegate
 extension EditEmployeeViewController: CoreDataDelegate {
+    
     func saveDataSuccessed(_ object: CoreDataClass, isPhotoDelete: Bool) {
         if isPhotoDelete {
-            // 新圖片儲存成功，刪除舊圖片
+            // 1 新圖片儲存成功，刪除舊圖片
             if let willDeleteFileURL = mWillDeleteFileURL {
                 deleteNotUseFile(fileURL: willDeleteFileURL)
             }
         }
-        showAlert(message: "儲存更新資料成功。", iconName: "checkmark.square").runModal()
+        // 2 回到清單畫面
+        guard let window = self.view.window else { return }
+        let alert = showAlert(message: "更新資料儲存成功。", iconName: "checkmark.square")
+        alert.beginSheetModal(for: window) { [unowned self] (response) in
+            let storyboard = NSStoryboard(name: "Main", bundle: nil)
+            if let lastPage = storyboard.instantiateController(withIdentifier: "ListViewController") as? ListViewController {
+                window.contentViewController = lastPage
+            }
+        }
+    }
+    
+    func isDeleteDataSuccessed(_ object: CoreDataClass, isSuccessed: Bool) {
+        if isSuccessed {
+            // 刪除成功
+            // 1 刪除圖片存檔
+            print(mEmployeeData!)
+            if let url = mWillDeleteFileURL {
+                deleteNotUseFile(fileURL: url)
+            }
+            // 2 回到清單畫面
+            guard let window = self.view.window else { return }
+            let alert = showAlert(message: "該筆資料已刪除。", iconName: "checkmark.square")
+            alert.beginSheetModal(for: window) { [unowned self] (response) in
+                print("alert 回應 -> ", response)
+                let storyboard = NSStoryboard(name: "Main", bundle: nil)
+                if let lastPage = storyboard.instantiateController(withIdentifier: "ListViewController") as? ListViewController {
+                    window.contentViewController = lastPage
+                }
+            }
+        } else {
+            showAlert(message: "執行刪除動作發生錯誤。", iconName: "exclamationmark.triangle").runModal()
+        }
     }
 }

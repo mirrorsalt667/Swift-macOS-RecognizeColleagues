@@ -91,6 +91,15 @@ final class FileManagerObject {
             handle(false)
         }
     }
+    func deleteFileInDirectory(filePath: String, handle: @escaping (Bool) -> (Void)) {
+        do {
+            try FileManager().removeItem(atPath: filePath)
+            handle(true)
+        } catch let deleteError {
+            print("刪除檔案錯誤：", deleteError.localizedDescription)
+            handle(false)
+        }
+    }
     
     // MARK: - Private Methods
     

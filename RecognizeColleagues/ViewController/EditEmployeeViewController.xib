@@ -333,6 +333,16 @@
                         <action selector="selectFileAction:" target="-2" id="slu-Ah-HS3"/>
                     </connections>
                 </button>
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="DHk-C1-g1D">
+                    <rect key="frame" x="406" y="226" width="61" height="32"/>
+                    <buttonCell key="cell" type="push" title="刪除" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Yfi-WR-iKf">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" size="13" name=".PingFangTC-Regular"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="deleteDataAction:" target="-2" id="FfJ-3Z-ZEN"/>
+                    </connections>
+                </button>
             </subviews>
             <constraints>
                 <constraint firstItem="vgX-Au-q4Z" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="20" id="20r-QF-ZFR"/>
@@ -343,8 +353,11 @@
                 <constraint firstItem="2se-yB-JZg" firstAttribute="centerX" secondItem="Hz6-mo-xeY" secondAttribute="centerX" id="Dna-Ut-Yqb"/>
                 <constraint firstItem="nvw-mC-gtY" firstAttribute="leading" secondItem="GIS-IF-ELQ" secondAttribute="trailing" constant="5" id="Izd-2M-htf"/>
                 <constraint firstItem="GIS-IF-ELQ" firstAttribute="trailing" secondItem="Hz6-mo-xeY" secondAttribute="centerX" id="MN9-jV-wCb"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="DHk-C1-g1D" secondAttribute="trailing" constant="20" id="Me8-kF-vMR"/>
                 <constraint firstItem="ARc-nT-8xD" firstAttribute="centerX" secondItem="Hz6-mo-xeY" secondAttribute="centerX" id="O1q-ws-g7e"/>
+                <constraint firstItem="DHk-C1-g1D" firstAttribute="leading" secondItem="ARc-nT-8xD" secondAttribute="trailing" constant="133" id="ObH-ee-vt3"/>
                 <constraint firstItem="nvw-mC-gtY" firstAttribute="top" secondItem="ARc-nT-8xD" secondAttribute="bottom" constant="8" id="Odp-tr-hkp"/>
+                <constraint firstItem="nvw-mC-gtY" firstAttribute="top" secondItem="DHk-C1-g1D" secondAttribute="bottom" constant="8" id="TWR-gD-d8A"/>
                 <constraint firstItem="ARc-nT-8xD" firstAttribute="leading" secondItem="vgX-Au-q4Z" secondAttribute="trailing" constant="133" id="drY-Ne-kge"/>
                 <constraint firstItem="GIS-IF-ELQ" firstAttribute="top" secondItem="ARc-nT-8xD" secondAttribute="bottom" constant="8" id="gYp-ZU-SX7"/>
                 <constraint firstItem="2se-yB-JZg" firstAttribute="top" secondItem="GIS-IF-ELQ" secondAttribute="bottom" constant="8" id="mZ4-qy-Cvy"/>
