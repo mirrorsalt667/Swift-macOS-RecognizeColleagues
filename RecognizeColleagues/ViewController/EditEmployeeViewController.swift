@@ -193,6 +193,10 @@ extension EditEmployeeViewController {
     }
     // 儲存資料到資料庫
     private func saveNewData(fileURL: URL) {
+        // 1 取得時間戳記
+        let nowTime = Date()
+        let timeStr = nowTime.timeIntervalSince1970.description
+        // 2 生日
         let month = birthMonthTextField.stringValue
         let date = birthDateTextField.stringValue
         mCoreDateClass.updateItemInDataBase(
@@ -204,11 +208,16 @@ extension EditEmployeeViewController {
             department: departmentTextField.stringValue,
             job: jobTitleTextField.stringValue,
             from: comeFromTextField.stringValue,
-            photo: fileURL.path
+            photo: fileURL.path,
+            time: timeStr
         )
     }
     // 圖片沒變
     private func saveNewDataWithoutNewPhoto() {
+        // 1 取得時間戳記
+        let nowTime = Date()
+        let timeStr = nowTime.timeIntervalSince1970.description
+        // 2 生日
         let month = birthMonthTextField.stringValue
         let date = birthDateTextField.stringValue
         mCoreDateClass.updateItemInDataBase(
@@ -220,7 +229,8 @@ extension EditEmployeeViewController {
             department: departmentTextField.stringValue,
             job: jobTitleTextField.stringValue,
             from: comeFromTextField.stringValue,
-            photo: mEmployeeData!.photo!)
+            photo: mEmployeeData!.photo!,
+            time: timeStr)
     }
     // 若有新圖片時，刪除舊圖片
     private func deleteNotUseFile(fileURL: URL) {
