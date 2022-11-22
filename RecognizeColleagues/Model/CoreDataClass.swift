@@ -39,14 +39,15 @@ final class CoreDataClass: NSObject, NSFetchedResultsControllerDelegate {
     
     // 新增資料
     func newItemInDataBase(uuid: UUID,
-                     chinese: String,
-                     english: String,
-                     birth: String,
-                     constellation: String,
-                     department: String,
-                     job: String,
-                     from: String,
-                     photo: String
+                           chinese: String,
+                           english: String,
+                           birth: String,
+                           constellation: String,
+                           department: String,
+                           job: String,
+                           from: String,
+                           photo: String,
+                           time: String
     ) {
 //        let colleagues = NSEntityDescription.insertNewObject(forEntityName: "Colleagues", into: mContext) as! Colleagues
         let colleague = Colleagues(context: mContext)
@@ -59,6 +60,7 @@ final class CoreDataClass: NSObject, NSFetchedResultsControllerDelegate {
         colleague.jobTitle = job
         colleague.from = from
         colleague.photo = photo
+        colleague.timeString = time
         do {
             try mContext.save()
             print("存入資料：", colleague)
@@ -77,7 +79,8 @@ final class CoreDataClass: NSObject, NSFetchedResultsControllerDelegate {
                               department: String,
                               job: String,
                               from: String,
-                              photo: String
+                              photo: String,
+                              time: String
     ) {
         let request = NSFetchRequest<Colleagues>(entityName: "Colleagues")
         request.predicate = NSPredicate(format: "uuid == %@", uuid as CVarArg)
@@ -93,6 +96,7 @@ final class CoreDataClass: NSObject, NSFetchedResultsControllerDelegate {
                 result[0].jobTitle = job
                 result[0].from = from
                 result[0].photo = photo
+                result[0].timeString = time
             }
             do {
                 try mContext.save()

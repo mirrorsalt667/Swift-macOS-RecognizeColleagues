@@ -70,7 +70,10 @@ extension UpdateViewController {
         guard let photoURL = mPhotoURL else { return }
         mFileManager.saveToDirectoryAndSaveIndex(selectFileURL: photoURL) { [weak self] isSuccess, url  in
             if isSuccess {
-                // 3 儲存到資料庫
+                // 3 取得時間戳記
+                let nowTime = Date()
+                let timeStr = nowTime.timeIntervalSince1970.description
+                // 4 儲存到資料庫
                 let month = self!.birthMonthTextField.stringValue
                 let date = self!.birthDateTextField.stringValue
                 self?.mCoreDateClass.newItemInDataBase(
@@ -82,7 +85,8 @@ extension UpdateViewController {
                     department: self!.departmentTextField.stringValue,
                     job: self!.jobTitleTextField.stringValue,
                     from: self!.comeFromTextField.stringValue,
-                    photo: url.path
+                    photo: url.path,
+                    time: timeStr
                 )
             } else {
                 self?.showAlert(message: "儲存失敗", iconName: "exclamationmark.triangle").runModal()

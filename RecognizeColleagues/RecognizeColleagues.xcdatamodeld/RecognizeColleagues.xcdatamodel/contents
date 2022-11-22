@@ -9,9 +9,10 @@
         <attribute name="from" optional="YES" attributeType="String"/>
         <attribute name="jobTitle" optional="YES" attributeType="String"/>
         <attribute name="photo" optional="YES" attributeType="String"/>
+        <attribute name="timeString" attributeType="String"/>
         <attribute name="uuid" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
     </entity>
     <elements>
-        <element name="Colleagues" positionX="-63" positionY="-18" width="128" height="164"/>
+        <element name="Colleagues" positionX="-63" positionY="-18" width="128" height="179"/>
     </elements>
 </model>
