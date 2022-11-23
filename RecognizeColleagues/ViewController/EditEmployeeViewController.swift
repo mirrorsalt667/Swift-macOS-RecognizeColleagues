@@ -209,7 +209,8 @@ extension EditEmployeeViewController {
             job: jobTitleTextField.stringValue,
             from: comeFromTextField.stringValue,
             photo: fileURL.path,
-            time: timeStr
+            time: timeStr,
+            needDeletePhoto: true
         )
     }
     // 圖片沒變
@@ -230,7 +231,8 @@ extension EditEmployeeViewController {
             job: jobTitleTextField.stringValue,
             from: comeFromTextField.stringValue,
             photo: mEmployeeData!.photo!,
-            time: timeStr)
+            time: timeStr,
+            needDeletePhoto: false)
     }
     // 若有新圖片時，刪除舊圖片
     private func deleteNotUseFile(fileURL: URL) {

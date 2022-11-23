@@ -80,7 +80,8 @@ final class CoreDataClass: NSObject, NSFetchedResultsControllerDelegate {
                               job: String,
                               from: String,
                               photo: String,
-                              time: String
+                              time: String,
+                              needDeletePhoto: Bool
     ) {
         let request = NSFetchRequest<Colleagues>(entityName: "Colleagues")
         request.predicate = NSPredicate(format: "uuid == %@", uuid as CVarArg)
@@ -100,7 +101,7 @@ final class CoreDataClass: NSObject, NSFetchedResultsControllerDelegate {
             }
             do {
                 try mContext.save()
-                mDelegate?.saveDataSuccessed(self, isPhotoDelete: true)
+                mDelegate?.saveDataSuccessed(self, isPhotoDelete: needDeletePhoto)
             } catch let saveError {
                 print("更新後儲存錯誤：", saveError)
             }
