@@ -16,7 +16,6 @@
 		C740C6FD290CF00800CC9758 /* RecognizeColleagues.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C740C6FB290CF00800CC9758 /* RecognizeColleagues.xcdatamodeld */; };
 		C740C6FF290CF00900CC9758 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C740C6FE290CF00900CC9758 /* Assets.xcassets */; };
 		C740C702290CF00900CC9758 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C740C700290CF00900CC9758 /* Main.storyboard */; };
-		C740C70A290D087B00CC9758 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C740C709290D087B00CC9758 /* GameViewController.swift */; };
 		C740C70C290D683600CC9758 /* Constellations.swift in Sources */ = {isa = PBXBuildFile; fileRef = C740C70B290D683600CC9758 /* Constellations.swift */; };
 		C740C70E290D71E700CC9758 /* CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C740C70D290D71E700CC9758 /* CoreDataClass.swift */; };
 		C740C711290E18CE00CC9758 /* UpdateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C740C70F290E18CE00CC9758 /* UpdateViewController.swift */; };
@@ -40,7 +39,6 @@
 		C740C6FE290CF00900CC9758 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C740C701290CF00900CC9758 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C740C703290CF00900CC9758 /* RecognizeColleagues.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RecognizeColleagues.entitlements; sourceTree = "<group>"; };
-		C740C709290D087B00CC9758 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		C740C70B290D683600CC9758 /* Constellations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constellations.swift; sourceTree = "<group>"; };
 		C740C70D290D71E700CC9758 /* CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataClass.swift; sourceTree = "<group>"; };
 		C740C70F290E18CE00CC9758 /* UpdateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateViewController.swift; sourceTree = "<group>"; };
@@ -118,7 +116,6 @@
 			isa = PBXGroup;
 			children = (
 				C740C6F9290CF00800CC9758 /* ViewController.swift */,
-				C740C709290D087B00CC9758 /* GameViewController.swift */,
 				C740C70F290E18CE00CC9758 /* UpdateViewController.swift */,
 				C740C713290E198200CC9758 /* ListViewController.swift */,
 				C7A9E22A291FFF5000265D10 /* ListCollectionViewItem.swift */,
@@ -206,7 +203,6 @@
 				C7A9E22B291FFF5000265D10 /* ListCollectionViewItem.swift in Sources */,
 				C7E55218291779F30093BDE0 /* FileManagerObject.swift in Sources */,
 				C7942859290EAE31006E921C /* FileViewController.swift in Sources */,
-				C740C70A290D087B00CC9758 /* GameViewController.swift in Sources */,
 				C79D9CE1292E257600258751 /* GameModeOneViewController.swift in Sources */,
 				C740C6FD290CF00800CC9758 /* RecognizeColleagues.xcdatamodeld in Sources */,
 				C740C6FA290CF00800CC9758 /* ViewController.swift in Sources */,
