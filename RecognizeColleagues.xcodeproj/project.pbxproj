@@ -22,6 +22,8 @@
 		C740C711290E18CE00CC9758 /* UpdateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C740C70F290E18CE00CC9758 /* UpdateViewController.swift */; };
 		C740C714290E198200CC9758 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C740C713290E198200CC9758 /* ListViewController.swift */; };
 		C7942859290EAE31006E921C /* FileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7942858290EAE31006E921C /* FileViewController.swift */; };
+		C79D9CE1292E257600258751 /* GameModeOneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C79D9CDF292E257600258751 /* GameModeOneViewController.swift */; };
+		C79D9CE2292E257600258751 /* GameModeOneViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C79D9CE0292E257600258751 /* GameModeOneViewController.xib */; };
 		C7A9E22B291FFF5000265D10 /* ListCollectionViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A9E22A291FFF5000265D10 /* ListCollectionViewItem.swift */; };
 		C7E55218291779F30093BDE0 /* FileManagerObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E55217291779F30093BDE0 /* FileManagerObject.swift */; };
 /* End PBXBuildFile section */
@@ -44,6 +46,8 @@
 		C740C70F290E18CE00CC9758 /* UpdateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateViewController.swift; sourceTree = "<group>"; };
 		C740C713290E198200CC9758 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		C7942858290EAE31006E921C /* FileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileViewController.swift; sourceTree = "<group>"; };
+		C79D9CDF292E257600258751 /* GameModeOneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameModeOneViewController.swift; sourceTree = "<group>"; };
+		C79D9CE0292E257600258751 /* GameModeOneViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GameModeOneViewController.xib; sourceTree = "<group>"; };
 		C7A9E22A291FFF5000265D10 /* ListCollectionViewItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCollectionViewItem.swift; sourceTree = "<group>"; };
 		C7E55217291779F30093BDE0 /* FileManagerObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManagerObject.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -78,6 +82,7 @@
 		C740C6F6290CF00800CC9758 /* RecognizeColleagues */ = {
 			isa = PBXGroup;
 			children = (
+				C79D9CDE292E255000258751 /* GamePage */,
 				C740C6F7290CF00800CC9758 /* AppDelegate.swift */,
 				C7E55215291687760093BDE0 /* Model */,
 				C7E55216291687800093BDE0 /* ViewController */,
@@ -88,6 +93,15 @@
 				C740C6FB290CF00800CC9758 /* RecognizeColleagues.xcdatamodeld */,
 			);
 			path = RecognizeColleagues;
+			sourceTree = "<group>";
+		};
+		C79D9CDE292E255000258751 /* GamePage */ = {
+			isa = PBXGroup;
+			children = (
+				C79D9CDF292E257600258751 /* GameModeOneViewController.swift */,
+				C79D9CE0292E257600258751 /* GameModeOneViewController.xib */,
+			);
+			path = GamePage;
 			sourceTree = "<group>";
 		};
 		C7E55215291687760093BDE0 /* Model */ = {
@@ -174,6 +188,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C79D9CE2292E257600258751 /* GameModeOneViewController.xib in Resources */,
 				C7115D14292918AA005685C6 /* EditEmployeeViewController.xib in Resources */,
 				C7124AE0292109C0008C1432 /* DetailCollectionViewItem.xib in Resources */,
 				C740C6FF290CF00900CC9758 /* Assets.xcassets in Resources */,
@@ -192,6 +207,7 @@
 				C7E55218291779F30093BDE0 /* FileManagerObject.swift in Sources */,
 				C7942859290EAE31006E921C /* FileViewController.swift in Sources */,
 				C740C70A290D087B00CC9758 /* GameViewController.swift in Sources */,
+				C79D9CE1292E257600258751 /* GameModeOneViewController.swift in Sources */,
 				C740C6FD290CF00800CC9758 /* RecognizeColleagues.xcdatamodeld in Sources */,
 				C740C6FA290CF00800CC9758 /* ViewController.swift in Sources */,
 				C7115D13292918AA005685C6 /* EditEmployeeViewController.swift in Sources */,

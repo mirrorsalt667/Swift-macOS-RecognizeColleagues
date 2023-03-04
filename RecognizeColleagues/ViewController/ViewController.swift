@@ -19,7 +19,8 @@ final class ViewController: NSViewController {
     }
 
     @IBAction func startGamePageAction(_ sender: Any) {
-        switchPages(pageID: "GameViewController")
+        let vc = GameModeOneViewController()
+        view.window?.contentViewController = vc
     }
     
     @IBAction func updatePageAction(_ sender: Any) {
